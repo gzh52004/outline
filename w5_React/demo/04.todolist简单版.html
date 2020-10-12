@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04.todolist简单版</title>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="js/browser.js"></script>
+</head>
+
+<body>
+    <h1>todolist简单版</h1>
+    <div id="app"></div>
+    <script type="text/babel">
+        /**
+             * 数据
+                * 通讯
+                * 更新 -> 组件自动更新
+                    * 谁的数据谁更新
+                    * 数据修改后组件需要自动更新（）
+            * 类组件、
+                * state状态：
+                    * 获取：this.state.xxx
+                    * 修改: this.setState()
+                        > 不要直接修改原数据，而是创建一个新的数据并覆盖它
+         */
+
+        //  function TodoList(){
+        //      var datalist = [
+        //          {
+        //              id:1,
+        //              text:'实现小目标，赚他一个亿',
+        //              done:false,
+        //              date:new Date()
+        //          },
+        //          {
+        //              id:2,
+        //              text:'迎娶白富美，走上人生巅峰',
+        //              done:false,
+        //              date:new Date(),
+        //          },
+        //          {
+        //              id:3,
+        //              text:'出任CEO，达到疯癫状态',
+        //              done:false,
+        //              date:new Date(),
+        //          }
+        //      ];
+
+        //      setTimeout(()=>{
+        //         datalist.unshift( {
+        //              id:4,
+        //              text:'公司破产，达到想死状态',
+        //              done:false,
+        //              date:new Date(),
+        //          });
+        //          console.log('添加成功')
+        //      },3000)
+        //      return (
+        //          <div>
+        //             <TodoContent datalist={datalist}/>
+        //             <TodoForm/>
+        //          </div>
+        //      )
+        //  }
+
+
+        class TodoList extends React.Component {
+            constructor() {
+                super(); // 调用super后才能使用this
+                this.state = {
+                    datalist: [
+                        {
+                            id: 1,
+                            text: '实现小目标，赚他一个亿',
+                            done: false,
+                            date: new Date()
+                        },
+                        {
+                            id: 2,
+                            text: '迎娶白富美，走上人生巅峰',
+                            done: false,
+                            date: new Date(),
+                        },
+                        {
+                            id: 3,
+                            text: '出任CEO，达到疯癫状态',
+                            done: false,
+                            date: new Date(),
+                        }
+                    ]
+                }
+
+                // 给自定义函数绑定this
+                this.addItem = this.addItem.bind(this);
+
+                // 模拟操作
+                // let { datalist } = this.state;
+                // let newData = [{
+                //     id: 4,
+                //     text: '公司破产，达到想死状态',
+                //     done: false,
+                //     date: new Date(),
+                // }, ...datalist]
+                // setTimeout(() => {
+                //     this.setState({
+                //         datalist: newData
+                //     })
+
+                //     console.log('添加成功')
+                // }, 3000)
+            }
+
+
+            // 谁的数据谁操作：在数据所在的组件中添加操作方法
+            addItem(text){console.log(text)
+                const {datalist} = this.state;
+                const newData = [{
+                    id: parseInt(Math.random()*100000),
+                    text,
+                    done: false,
+                    date: new Date(),
+                }, ...datalist]
+                
+                this.setState({
+                    datalist:newData
+                })
+            }
+
+            // 所谓的组件刷新，其实就是重新执行一次render方法
+            render() {
+                const { datalist } = this.state;// this.state.datalist
+                return (
+                    <div>
+                        <TodoContent datalist={datalist} />
+                        <TodoForm addItem={this.addItem} />
+                    </div>
+                )
+            }
+        }
+
+        function TodoContent(props) {
+            console.log('props=', props)
+            return (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>待办事项</th>
+                            <th>是否完成</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            props.datalist.map((item, idx) => {
+                                return <TodoItem key={item.id} item={item} idx={idx} />
+                            })
+
+                            // [<TodoItem/>,<TodoItem/>,<TodoItem/>]
+                        }
+                    </tbody>
+                </table>
+            )
+        }
+
+        function TodoItem({ item, idx }) {
+            return (
+                <tr>
+                    <td>{idx + 1}</td>
+                    <td>{item.text}</td>
+                    <td>{item.done}</td>
+                    <td>
+                        <button>完成</button>
+                        <button>删除</button>
+                    </td>
+
+                </tr>
+            )
+        }
+
+        // function TodoForm({addItem}) {
+        //     return (
+        //         <div>
+        //             <textarea></textarea>
+        //             <button onClick={()=>{
+        //                 addItem('test')
+        //             }}>添加</button>
+        //         </div>
+        //     )
+        // }
+
+        class TodoForm extends React.Component{
+            constructor(props){
+                super();
+                this.state = {
+                    text:'laoxie'
+                }
+
+                this.changeText = this.changeText.bind(this)
+            }
+            changeText(event){
+                this.setState({
+                    text:event.currentTarget.value
+                })
+            }
+            render(){
+                return (
+                    <div>
+                        <textarea></textarea>
+                        <button onClick={()=>{
+                            this.props.addItem(this.state.text)
+                        }}>添加</button>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <TodoList />,
+            document.getElementById('app')
+        )
+    </script>
+</body>
+
+</html>

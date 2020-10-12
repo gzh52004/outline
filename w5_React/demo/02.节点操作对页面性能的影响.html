@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02.节点操作对页面性能的影响</title>
+</head>
+<body>
+    <h1>02.节点操作对页面性能的影响</h1>
+    <div class="box">1</div>
+    <script>
+        /**
+            * 影响页面性能的几大因素
+                * 节点数量
+                * 节点操作
+                * 事件绑定
+                * ....
+            * 有几次节点操作：30000->20000->10000->3
+            * 虚拟DOM的作用
+                * 真实DOM的操作不可避免，但可以减少，虚拟DOM（js对象）
+         */
+        // let start = Date.now();
+        console.time('mytime');
+        const box = document.querySelector('.box');
+        let num = box.innerText;
+        for(let i=0;i<10000;i++){
+            num++
+        }
+        box.innerText = num
+        // let end = Date.now();
+        // const offset = end - start
+        // console.log(offset)
+        console.timeEnd('mytime');
+    </script>
+</body>
+</html>

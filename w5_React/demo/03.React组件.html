@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React组件</title>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="js/browser.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        /**
+         * 组件
+            > 组件名首字母必须为大写
+            * 分类
+                * 函数组件
+                * 类组件
+                    * 必须继承自React.Component
+                    * 必须包含render方法
+         */
+        const box = <div id="box">box</div>; // React.createElement()
+        console.log('box', box);
+
+        // 函数组件
+        function App() {
+            return <div>
+                <Nav></Nav>
+                <Home />
+                <Discover />
+                <Footer></Footer>
+            </div>
+        }
+
+        const Footer = function () {
+            return (
+                <footer>
+                    &copy; copyright h5-2004
+                </footer>
+            )
+        }
+
+        function Nav() {
+            return (
+                <nav>
+                    <ul>
+                        <li>首页</li>
+                        <li>发现</li>
+                        <li>我的</li>
+                    </ul>
+                </nav>
+            )
+        }
+
+        // 类组件
+        // Home
+        class Home extends React.Component {
+
+            render() {
+                var num = 10;
+                return (
+                    <div className="home">
+                        首页
+                        {num}
+                    </div>
+                )
+            }
+        }
+
+        // Discover
+        class Discover extends React.Component {
+
+            render() {
+                return (
+                    <div className="discover">
+                        发现
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <App />
+            ,
+            document.querySelector('#app')
+        )
+    </script>
+</body>
+
+</html>
