@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React的使用</title>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="js/browser.js"></script>
+</head>
+<body>
+    <h1>React的使用</h1>
+    <div id="app">
+        <!--
+            <div> 
+                <h2 class="title">H5-2004</h2>
+                <ul id="list">
+                    <li>data1</li>
+                    <li>data2</li>
+                </ul>
+            </div>
+        -->
+    </div>
+    <script type="text/babel">
+        // 浏览器会忽略掉不识别的script标签内容
+        /**
+            *  渲染：ReactDOM.render(vNode,target)
+                * vNode： 虚拟节点
+                * target：目标节点
+            
+            * 创建虚拟节点： React.createElement(type,props,children)
+                * type: 节点名称
+                * props: 节点属性
+                * children: 节点内容
+                * 
+            * JSX
+                > JS与HTML代码混用的写法
+         */
+        // const vNode =  React.createElement('div',null,[
+        //     React.createElement('h2',{className:'title'},'H5-2004'),
+        //     React.createElement('ul',{id:'list'},
+        //         [
+        //             React.createElement('li',null,'data1'),
+        //             React.createElement('li',null,'data2'),
+        //         ]
+        //     )
+        // ])
+        const username = 'laoxie';
+        const style = {color:'#f00'};
+        const vNode = <div>
+                {
+                    //<h2 className="title" data-name={username} style={style}>H5-2004 {username}</h2>
+                }
+                    <ul id="list">
+                    <li>data1</li>
+                    <li>data2</li>
+                </ul>
+                <input type="text" autoFocus /> <img src="" />
+            </div>;
+
+        console.log('vNode',React.createElement('div',null,'123'));
+        ReactDOM.render(
+            // React.createElement('div',null,[
+            //     React.createElement('h2',{className:'title'},'H5-2004'),
+            //     React.createElement('ul',{id:'list'},
+            //         [
+            //             React.createElement('li',null,'data1'),
+            //             React.createElement('li',null,'data2'),
+            //         ]
+            //     )
+            // ])
+            vNode
+            ,
+            document.getElementById('app')
+        )
+    </script>
+</body>
+</html>
