@@ -27,47 +27,10 @@
                         > 不要直接修改原数据，而是创建一个新的数据并覆盖它
          */
 
-        //  function TodoList(){
-        //      var datalist = [
-        //          {
-        //              id:1,
-        //              text:'实现小目标，赚他一个亿',
-        //              done:false,
-        //              date:new Date()
-        //          },
-        //          {
-        //              id:2,
-        //              text:'迎娶白富美，走上人生巅峰',
-        //              done:false,
-        //              date:new Date(),
-        //          },
-        //          {
-        //              id:3,
-        //              text:'出任CEO，达到疯癫状态',
-        //              done:false,
-        //              date:new Date(),
-        //          }
-        //      ];
-
-        //      setTimeout(()=>{
-        //         datalist.unshift( {
-        //              id:4,
-        //              text:'公司破产，达到想死状态',
-        //              done:false,
-        //              date:new Date(),
-        //          });
-        //          console.log('添加成功')
-        //      },3000)
-        //      return (
-        //          <div>
-        //             <TodoContent datalist={datalist}/>
-        //             <TodoForm/>
-        //          </div>
-        //      )
-        //  }
 
         // 深层次组件通讯步骤1. 创建Context
-        const MyContext = React.createContext();
+        const defaultData = {a:10,b:20}
+        const MyContext = React.createContext(defaultData);
         console.log('MyContext',MyContext);
         
         class TodoList extends React.Component {
@@ -177,16 +140,19 @@
                 const { datalist } = this.state;// this.state.datalist
                 const doneList = datalist.filter(item=>item.done);
                 const unDoneList = datalist.filter(item=>!item.done);
+                const shareData = {
+                    remove:this.removeItem,
+                    complete:this.completeItem,
+                    add:this.addItem
+                }
                 return (
                     <div>
-                        {/*父组件给子组件提供数据*/}
-
-                        <TodoContent datalist={datalist} 
-                        removeItem={this.removeItem}
-                        completeItem={this.completeItem}
-                         />
-                         <div>总数：{datalist.length}, 完成：{doneList.length},未完成：{unDoneList.length}</div>
-                        <TodoForm addItem={this.addItem} />
+                        {/*深层次组件通讯步骤2：父组件给子组件共享数据*/}
+                        <MyContext.Provider value={shareData}>
+                            <TodoContent datalist={datalist} />
+                            <div>总数：{datalist.length}, 完成：{doneList.length},未完成：{unDoneList.length}</div>
+                            <TodoForm />
+                        </MyContext.Provider>
                     </div>
                 )
             }
@@ -211,8 +177,6 @@
                                 key={item.id} 
                                 item={item} 
                                 idx={idx} 
-                                removeItem={props.removeItem}
-                                completeItem={props.completeItem}
                                  />
                             })
 
@@ -223,31 +187,29 @@
             )
         }
 
-        function TodoItem({ item, idx,removeItem,completeItem }) {
+        function TodoItem({ item, idx}) {
             return (
-                <tr>
-                    <td>{idx + 1}</td>
-                    <td>{item.text}</td>
-                    <td>{item.done ? '是' : '否'}</td>
-                    <td>
-                        <button onClick={completeItem.bind(null,item.id)}>完成</button>
-                        <button onClick={removeItem.bind(null,item.id)}>删除</button>
-                    </td>
+                <MyContext.Consumer>
+                    {
+                        ({remove,complete})=>{
+                            return (
+                                <tr>
+                                    <td>{idx + 1}</td>
+                                    <td>{item.text}</td>
+                                    <td>{item.done ? '是' : '否'}</td>
+                                    <td>
+                                        <button onClick={complete.bind(null,item.id)}>完成</button>
+                                        <button onClick={remove.bind(null,item.id)}>删除</button>
+                                    </td>
 
-                </tr>
+                                </tr>
+                            )
+                        }
+                    }
+                </MyContext.Consumer>
+                
             )
         }
-
-        // function TodoForm({addItem}) {
-        //     return (
-        //         <div>
-        //             <textarea></textarea>
-        //             <button onClick={()=>{
-        //                 addItem('test')
-        //             }}>添加</button>
-        //         </div>
-        //     )
-        // }
 
         class TodoForm extends React.Component{
             constructor(props){
@@ -269,13 +231,15 @@
                 this.setState({
                     text:''
                 })
-                this.props.addItem(this.state.text);
+                // this.props.addItem(this.state.text);
+                this.context.add(this.state.text)
 
                 // 自动获得焦点（节点操作）
                 // this.refs.text.focus() // 这种方式已经不推荐
                 this.text.focus();
             }
             render(){
+                console.log('todoForm.this=',this);
                 return (
                     <div>
                         <textarea ref={el=>this.text=el} value={this.state.text} onChange={this.changeText}></textarea>
@@ -284,6 +248,9 @@
                 )
             }
         }
+        // 添加contextType静态属性
+        TodoForm.contextType = MyContext;
+        
 
         ReactDOM.render(
             <TodoList />,

@@ -202,4 +202,35 @@
     ```
 
 ### 知识点
-*  MVVM中思维模式的改变： 节点操作 -> 数据驱动
+* MVVM中思维模式的改变： 节点操作 -> 数据驱动
+* bind
+* 组件通讯
+    * 父->子： props
+    * 子->父： props
+    * 兄弟->兄弟：状态提升
+    * 深层次组件通讯：
+        * 逐层传递（不推荐）
+        * Context
+            1. 创建 Context
+                > React.createContext(defaults)
+            2. 父组件共享数据: 父组件往Context中存入数据并提供给它的子组件使用
+                > MyContext.Provider，如父组件没有共享数据，子组件获取时得到初始化数据
+            3. 子组件获取数据
+                * Consumer
+                    * 函数组件
+                    * 类组件
+                * contextType静态属性
+                    * 类组件
+* 手动配置基于webpack的React环境
+    * webpack是一个基于配置的打包工具
+    * gulp是一个基于任务的打包工具
+    * webpack常用配置
+        * entry
+        * output
+        * devServer
+        * loader: module.rules
+        * plugins
+* npm script
+* yarn
+    * 安装：npm install xxx   yarn add xxx
+    * npm view xxx versions
