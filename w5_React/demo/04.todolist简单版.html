@@ -95,6 +95,8 @@
 
                 // 给自定义函数绑定this
                 this.addItem = this.addItem.bind(this);
+                this.removeItem = this.removeItem.bind(this);
+                this.completeItem = this.completeItem.bind(this);
 
                 // 模拟操作
                 // let { datalist } = this.state;
@@ -128,13 +130,54 @@
                     datalist:newData
                 })
             }
+            removeItem(id){
+                console.log('id=',id)
+                const {datalist} = this.state;
+
+                // const newData = datalist.filter(item=>{
+                //     // filter方法的返回值取决与内容的return值
+                //     // true：保留
+                //     // false: 删除
+                //     // return false; // 得到一个空数组
+                //     // return true  // 得到一个一摸一样的数组
+                //     if(item.id === id){
+                //         return false ;// 删除
+                //     }else{
+                //         return true; 
+                //     }
+                // })
+
+                const newData = datalist.filter(item=>item.id!==id)
+
+                this.setState({
+                    datalist:newData
+                })
+            }
+            completeItem(id){
+                const {datalist} = this.state;
+
+                const newData = datalist.map(item=>{
+                    if(item.id === id){
+                        item.done = true;
+                    }
+
+                    return item; //[100,100,100]
+                });
+
+                this.setState({
+                    datalist:newData
+                })
+            }
 
             // 所谓的组件刷新，其实就是重新执行一次render方法
             render() {
                 const { datalist } = this.state;// this.state.datalist
                 return (
                     <div>
-                        <TodoContent datalist={datalist} />
+                        <TodoContent datalist={datalist} 
+                        removeItem={this.removeItem}
+                        completeItem={this.completeItem}
+                         />
                         <TodoForm addItem={this.addItem} />
                     </div>
                 )
@@ -156,7 +199,13 @@
                     <tbody>
                         {
                             props.datalist.map((item, idx) => {
-                                return <TodoItem key={item.id} item={item} idx={idx} />
+                                return <TodoItem 
+                                key={item.id} 
+                                item={item} 
+                                idx={idx} 
+                                removeItem={props.removeItem}
+                                completeItem={props.completeItem}
+                                 />
                             })
 
                             // [<TodoItem/>,<TodoItem/>,<TodoItem/>]
@@ -166,15 +215,15 @@
             )
         }
 
-        function TodoItem({ item, idx }) {
+        function TodoItem({ item, idx,removeItem,completeItem }) {
             return (
                 <tr>
                     <td>{idx + 1}</td>
                     <td>{item.text}</td>
-                    <td>{item.done}</td>
+                    <td>{item.done ? '是' : '否'}</td>
                     <td>
-                        <button>完成</button>
-                        <button>删除</button>
+                        <button onClick={completeItem.bind(null,item.id)}>完成</button>
+                        <button onClick={removeItem.bind(null,item.id)}>删除</button>
                     </td>
 
                 </tr>
@@ -200,19 +249,29 @@
                 }
 
                 this.changeText = this.changeText.bind(this)
+                this.submit = this.submit.bind(this)
             }
             changeText(event){
                 this.setState({
                     text:event.currentTarget.value
                 })
             }
+            submit(){
+                // 清空文本框
+                this.setState({
+                    text:''
+                })
+                this.props.addItem(this.state.text);
+
+                // 自动获得焦点（节点操作）
+                // this.refs.text.focus() // 这种方式已经不推荐
+                this.text.focus();
+            }
             render(){
                 return (
                     <div>
-                        <textarea></textarea>
-                        <button onClick={()=>{
-                            this.props.addItem(this.state.text)
-                        }}>添加</button>
+                        <textarea ref={el=>this.text=el} value={this.state.text} onChange={this.changeText}></textarea>
+                        <button onClick={this.submit}>添加</button>
                     </div>
                 )
             }

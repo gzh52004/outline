@@ -175,3 +175,31 @@
 * 表单元素
     * 受控组件：把表单元素的值与组件的状态state进行绑定
     * 非受控组件: 通过传统的节点进行操作表单元素
+
+
+## day5-2
+
+### 面试题
+* call,apply,bind的区别
+    * 共同点
+        * 都是函数的原型方法
+        * 都能改变函数的this指向
+    * 区别
+        * call和apply会执行函数，bind不会执行函数（返回一个新的函数）
+        * call可以有多个参数，apply执行有2个参数，且第二个参数为数组
+
+    ```js
+        const getData = function(a,b){
+            console.log(this,a,b);
+        }
+
+        getData();// window,undefined,undefined
+
+        getData.call(document,10,20,30,40);// 改变this指向到document，并执行getData函数
+        getData.apply(document,[10])
+        const getDatas = getData.bind(document,10,20);
+        getDatas();// document,10,20
+    ```
+
+### 知识点
+*  MVVM中思维模式的改变： 节点操作 -> 数据驱动
