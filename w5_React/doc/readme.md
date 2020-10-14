@@ -234,3 +234,71 @@
 * yarn
     * 安装：npm install xxx   yarn add xxx
     * npm view xxx versions
+
+## day5-3
+
+### 复习
+* 组件通讯
+    * 深层次组件通讯
+        * 逐层传递（推荐）
+        * Context
+            1. 创建Context
+                ```js
+                    const MyContext = React.createContext(initData)
+                ```
+            2. 父组件共享数据
+                ```js
+                    <MyContext.Provider value={{}}>
+                        // 子组件
+                    </MyContext.Provider>
+                ```
+            3. 子组件接收数据
+                * Consumer
+                    > 使用于函数组件和类组件
+                    ```js
+                        <MyContext.Consumer>
+                            {
+                                (value)=>{
+                                    return <div>
+
+                                    </div>
+                                }
+                            }
+                        </MyContext.Consumer>
+                    ```
+                * contextType
+                    > 只适用于类组件，需要给类组件添加一个静态属性
+                    ```js
+                        class TodoForm extends React.Component{
+                            // this.context
+                        }
+
+                        TodoForm.contextType = MyContext;
+                    ```
+    * webpack
+        > 从0配置基于webpack的React环境
+        * 工作原理： 从入口开始分析项目所有的依赖，并通过配置的加载器编译对应的文件，并打包成需要的文件
+        * 常用配置
+            * entry     入口
+            * output    出口（编译时的输出配置）
+            * devServer
+                > webpack-dev-server
+            * loader: module.rules
+            * plugins
+
+### 知识点
+* 模块化开发（组件化开发）
+* 生命周期函数
+    * Initial: 初始化阶段
+        * constructor
+    * Mounting：挂载阶段
+        * componentWillMount （不推荐，17.x版本后会改名为：UNSAFE_componentWillMount）
+        * componentDidMount
+    * Updating：更新阶段
+        * componentWillUpdate（不推荐）
+        * componentDidUpdate
+    * Unmounting：卸载阶段
+        * componentWillUnMount
+    * 特殊生命周期函数
+        * shouldComponentUpdate
+        * componentWillReceiveProps （不推荐）

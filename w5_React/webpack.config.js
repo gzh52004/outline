@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
  module.exports = {
      // webpack的配置
 
-     // 入口
+     // 入口(单入口，多入口)
      entry:'./src/main.js',
 
     //  出口
@@ -32,7 +32,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
                     loader:'babel-loader',
                     options:{
                         presets:['@babel/preset-react'], // 用于把JSX编译成React.createElement()
-                        // plugins:[]
+                        plugins:['@babel/plugin-proposal-class-properties']
                     }
                 }]
             },
