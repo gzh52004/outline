@@ -302,3 +302,43 @@
     * 特殊生命周期函数
         * shouldComponentUpdate
         * componentWillReceiveProps （不推荐）
+* React组件什么时候会刷新
+    * state改变
+    * props改变
+    * 父组件刷新（即使它依赖的数据没有更新）
+        > 一般要对这种情况进行性能优化
+    * 强制刷新：this.foreUpdate()
+        > 不推荐使用
+* React.Component与React.PureComponent的区别
+    > PureComponent内部做了shouldComponentUpdate的判断
+
+
+### ReactRouter
+> 万物皆组件
+* 引入
+    * react-router.js
+    * react-router-dom.js
+* 使用
+    * 路由模式
+        * HashRouter
+        * BrowserRouter
+    * 路由渲染
+        * Switch
+        * Route
+            * path
+            * component
+            * render
+            * exact
+        * Redirect
+            * from
+            * to
+            * exact
+    * 路由跳转
+        * Link
+            * to
+            * replace
+        * NavLink
+            * to
+            * replace
+            * activeStyle
+            * activeClassName
