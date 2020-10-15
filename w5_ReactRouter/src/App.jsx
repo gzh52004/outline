@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Route,Redirect,Switch,Link,NavLink} from 'react-router-dom';
+import {Route,Redirect,Switch,Link,NavLink,withRouter} from 'react-router-dom';
 
 import Home from './views/Home'
 import Login from './views/Login'
@@ -9,7 +9,8 @@ import Mine from './views/Mine'
 
 import './App.scss';
 
-const App = ()=>{
+let App = (props)=>{
+    console.log('App.props',props);
     const menu = [{
         text:'首页',
         path:'/home',
@@ -37,11 +38,14 @@ const App = ()=>{
             <nav>
                 <ul>
                     {
-                        menu.map(item=><li key={item.name}>
-                            <NavLink 
+                        menu.map(item=><li key={item.name} onClick={()=>{
+                            props.history.push(item.path)
+                        }}>
+                            {/* <NavLink 
                             activeClassName="active" 
                             to={item.path}
-                            >{item.text}</NavLink>
+                            >{item.text}</NavLink> */}
+                            {item.text}
                             </li>)
                     }
                 </ul>
@@ -61,6 +65,7 @@ const App = ()=>{
         </div>
         )
 }
-   
+ 
+App = withRouter(App)
 
 export default App

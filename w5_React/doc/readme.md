@@ -342,3 +342,86 @@
             * replace
             * activeStyle
             * activeClassName
+
+
+## day5-4
+
+### 复习
+* 生命周期函数
+    > 只有类组件才具有生命周期函数
+    * 初始化阶段
+    * 挂载阶段
+        * componentDidMount
+    * 更新阶段
+        > 组件什么情况下会刷新：
+            * state改变
+            * props改变
+            * 父组件刷新
+            * 强制刷新（直接执行render方法）
+        * componetDidUpdate
+            > 一般用于监听值的修改
+            * 在该生命周期函数中使用this.setData()时要注意避免死循环（需要添加条件判断）
+    * 销毁阶段
+        * componetWillUnmount
+            > 一般用于清除定时器，取消ajax请求等操作
+    * 特殊生命周期函数
+        * shouldComponentUpdate(nextProps,nextState)
+    * 性能优化
+        * PureComponent优化方案
+        * shouldComponentUpdate优化方法
+* ReactRouter
+    > 一切皆组件
+    * 路由类型
+        * HashRouter
+            > 原理：hashchange事件
+        * BrowserRouter
+    * 渲染组件
+        * Route
+        * Redirect
+        * Switch
+    * 导航
+        * 声明式导航
+            * Link   react-router.js
+            * NavLink   react-router-dom.js
+        
+    
+### 知识点
+* 编程式导航: 利用js来实现页面跳转
+    * 跳转方式
+        * history.push()
+        * history.replace()
+    * 如何获取history,location,match
+        * Route渲染
+            > 当前组件是通过Route渲染的，则history会通过props传入组件
+        * withRouter高阶组件
+
+
+    ```js
+        // vue
+        this.$router.push()
+        this.$router.replace()
+
+        
+    ```
+* 高阶组件HOC（High Order Component）
+    * 高阶组件是一个**纯函数**
+        > 纯函数: 不修改传入的参数，固定的输入有固定的输出
+    * 高阶组件的参数为组件，返回值为新组件
+    * 高阶组件是一种设计模式，类似于装饰器模式
+
+    ```js
+        function sum(a,b){
+            return a+b;
+        }
+
+        sum(1,2);//3
+        sum(1,2);//3
+
+        function randomNumber(min,max){
+            return parseInt(Math.random()*(max-min+1))+min
+        }
+        randomNumber(10,20);//15
+        randomNumber(10,20);//15
+
+    ```
+    
