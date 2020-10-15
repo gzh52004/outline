@@ -5,11 +5,10 @@
     * 高阶组件必须返回一个新的组件
  */
 import React from 'react';
-
-const { render } = require("react-dom")
+import {Redirect} from 'react-router-dom';
 
 export function withUser(MyComponent){
-    // return class OuterComponent extends Component{
+    // return class OuterComponent extends React.Component{
         // constructor(props){
         //     super(props);
         //     this.state = {
@@ -43,3 +42,38 @@ export function withUser(MyComponent){
         return <MyComponent {...props} userInfo={userInfo} />
     }
  }
+
+
+//  用户访问权限高阶组件
+export function withAuth(InnerComponent){
+    @withUser
+    class OuterComponent extends React.Component{
+        componentDidMount(){
+        }
+        render(){
+            if(this.props.userInfo){
+                 // 用户登录后显示内容
+                return <InnerComponent {...this.props} />
+            }else{
+                return <Redirect to="/login" />
+            }
+        }
+    }
+
+    // 反向继承：这种写法只能适用于类组件
+    // class OuterComponent extends InnerComponent{
+    //     componentDidMount(){
+    //         console.log('OuterComponent.componentDidMount');
+    //         super.componentDidMount();
+    //     }
+    //     render(){
+    //         if(this.props.userInfo){
+    //             return super.render()
+    //         }else{
+    //             return <Redirect to="/login" />
+    //         }
+    //     }
+    // }
+    // return withUser(OuterComponent);
+    return OuterComponent
+}

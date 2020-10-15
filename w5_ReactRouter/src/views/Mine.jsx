@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {withUser} from '../utils/hoc'
+import {withAuth, withUser} from '../utils/hoc'
 
 let Mine = function(props){
     console.log('Mine.props',props)
@@ -20,6 +20,6 @@ let Mine = function(props){
     )
 }
 
-Mine = withUser(Mine);
-
+// Mine = withUser(Mine);
+Mine = withAuth(Mine)
 export default Mine;
