@@ -432,3 +432,19 @@
 
     * ES7装饰器：@
         > 需要`@babel/plugin-proposal-decorators`插件的支持
+
+## day5-5
+
+### 复习
+* 高阶组件
+    * withRouter
+    * 一个纯函数
+    * 返回一个组件
+    * 是一个包装函数（装饰器模式）
+    * 定义方式
+        * 属性代理
+        * 反向继承
+            * super
+    * ES装饰器: @
+* ant-design
+    * 

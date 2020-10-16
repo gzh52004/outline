@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Route, Redirect, Switch, Link, NavLink, withRouter } from 'react-router-dom';
-// import {HomeOutlined,UserOutlined,ShoppingCartOutlined} from '@ant-design/icons'
+import {HomeOutlined,UserOutlined,ShoppingCartOutlined} from '@ant-design/icons'
 
-import { Menu,Row,Col,Button } from 'antd';
+import { Layout,Menu,Row,Col,Button } from 'antd';
 
 import Home from './views/Home'
 import Login from './views/Login'
@@ -86,7 +86,7 @@ class App extends React.Component{
             path: '/home',
             name: 'home',
             component: Home,
-            // icon:HomeOutlined
+            icon:<HomeOutlined/>
         }, 
         // {
         //     text: '登录',
@@ -104,13 +104,13 @@ class App extends React.Component{
             path: '/mine',
             name: 'mine',
             component: Mine,
-            // icon:UserOutlined
+            icon:<UserOutlined/>
         }, {
             text: '购物车',
             path: '/cart',
             name: 'cart',
             component: Cart,
-            // icon:ShoppingCartOutlined
+            icon:<ShoppingCartOutlined/>
         }],
     
         current: '/home'
@@ -135,7 +135,7 @@ class App extends React.Component{
         const {menu,current} = this.state;
         return (
             <div>
-                <Row>
+                <Row style={{backgroundColor:'#001529',lineHeight:'46px'}}>
                     <Col span={18}>
                     <Menu mode="horizontal" theme="dark" onClick={this.changeMenu} selectedKeys={[current]}>
                         {
@@ -147,12 +147,12 @@ class App extends React.Component{
                         }
                     </Menu>
                     </Col>
-                    <Col span={6}>
+                    <Col span={6} style={{textAlign:'right'}}>
                         <Button type="link" onClick={this.goto.bind(this,'/reg')}>注册</Button>
                         <Button type="link" onClick={this.goto.bind(this,'/login')}>登录</Button>
                     </Col>
                 </Row>
-                
+                <Layout.Content style={{padding:10}}>
                 <Switch>
                     {/* <Route path='/home' component={Home} />
                         <Route path='/login' component={Login} />
@@ -167,6 +167,7 @@ class App extends React.Component{
                     <Redirect from='/' to='/home' exact />
                     <Redirect to="/notfound" />
                 </Switch>
+                </Layout.Content>
             </div>
         )
     }
