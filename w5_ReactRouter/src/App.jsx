@@ -9,7 +9,7 @@ import Home from './views/Home'
 import Login from './views/Login'
 import Reg from './views/Reg'
 import Mine from './views/Mine'
-import Cart from './views/Cart'
+import IQ from './views/IQ'
 
 import 'antd/dist/antd.css'
 import './App.scss';
@@ -105,13 +105,15 @@ class App extends React.Component{
             name: 'mine',
             component: Mine,
             icon:<UserOutlined/>
-        }, {
-            text: '购物车',
-            path: '/cart',
-            name: 'cart',
-            component: Cart,
-            icon:<ShoppingCartOutlined/>
-        }],
+        }, 
+        // {
+        //     text: '购物车',
+        //     path: '/cart',
+        //     name: 'cart',
+        //     component: Cart,
+        //     icon:<ShoppingCartOutlined/>
+        // }
+        ],
     
         current: '/home'
     }
@@ -161,6 +163,7 @@ class App extends React.Component{
                     {
                         menu.map(item => <Route key={item.name} path={item.path} component={item.component} />)
                     }
+                    <Route path='/iq/:id' component={IQ} />
                     <Route path='/login' component={Login} />
                     <Route path='/reg' component={Reg} />
                     <Route path="/notfound" render={() => <div>404</div>} />

@@ -447,4 +447,27 @@
             * super
     * ES装饰器: @
 * ant-design
-    * 
+### 知识点
+* 路由传参
+    * 动态路由
+    * state
+        > state在页面刷新后消失
+    * search
+        > 只支持字符串写法：`search:'?id=xxx'`
+* 接收参数
+    * 动态路由：`props.match.params.xxx`
+    * state: `props.location.state.xxx`
+    * search: `props.location.search`
+        > 需要手动提取参数值
+
+* webpack路由别名
+    * resolve.alias
+    ```js
+        {
+            resolve:{
+                alias:{
+                    '@':path.resolve('./src')
+                }
+            }
+        }
+    ```
