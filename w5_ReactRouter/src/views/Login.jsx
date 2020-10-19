@@ -34,19 +34,29 @@ const Login = function (props) {
             }
         });
         if (data.status === 200) {
+            if(values.remember){
+                localStorage.setItem('currentUser',JSON.stringify(data.data))
+            }else{
+                sessionStorage.setItem('currentUser',JSON.stringify(data.data))
+            }
+
             message.success('登录成功')
+            // 提取目标地址
+            const {search} = props.location;
+            const pathname = search.match(/targetUrl\=([\/\w\-]+)/);
+            let targetUrl;
+            if(pathname){
+                targetUrl = pathname[1];
+            }
+            console.log('targetUrl',targetUrl)
             props.history.push({
-                pathname: '/mine'
+                pathname: targetUrl || '/mine'
             })
         }else{
             message.error('用户名或密码错误') 
         }
 
-        if(values.remember){
-            localStorage.setItem('currentUser',JSON.stringify(data.data))
-        }else{
-            sessionStorage.setItem('currentUser',JSON.stringify(data.data))
-        }
+       
     }
     return (
         <div>

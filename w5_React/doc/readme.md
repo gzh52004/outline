@@ -475,6 +475,42 @@
 
 ## day 6-1
 
+### 面试题
+* localStorage、sessionStorage、cookie的区别
+* 如何等待4个ajax请求的全局全部返回后再进行操作
+    * Promise.all(): 把多个Promise对象包装成一个大的Promise对象
+    ```js
+        new Promise((resolve,reject)=>{
+                ajax1();
+        }).then(res1=>{
+            return new Promise((resolve)=>{
+                ajax2()
+            })
+        }).then(res2=>{
+            return new Promise((resolve)=>{
+                ajax3()
+            })
+        }).then(res3=>{
+            return new Promise((resolve)=>{
+                ajax4()
+            })
+        }).then(res4=>{
+
+        })
+    ```
+* 怎么理解防抖和节流
+    * 防抖经典案例->搜索建议：html5
+        > 只执行最后一次
+    * 节流经典案例->滚动加载
+        > 只执行第一次
+* React深层次组件间如何通讯
+    * 逐层传递
+    * Context
+        1.创建
+        2.共享数据
+        3.接收数据
+* v-show和v-if的区别
+
 ### 知识点
 * 加密解密
     * 分类
@@ -492,4 +528,24 @@
                     * 私钥： 私钥加密 -> 公钥解密（签名）
         * http/https
             * ssl
-            * 端口：
+            * 端口：http80，https443
+
+* 嵌套路由
+```js
+    // vue
+    new VueRouter({
+        routes:[
+            {
+                path:'/mine',
+                children:[{
+                    path:'info',
+                    component:Info
+                },{
+                    path:'changepassword',
+                    component:ChangePassword
+                }]
+            }
+        ]
+    })
+
+```

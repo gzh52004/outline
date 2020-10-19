@@ -10,6 +10,7 @@ import Login from './views/Login'
 import Reg from './views/Reg'
 import Mine from './views/Mine'
 import IQ from './views/IQ'
+import Add from './views/Add'
 
 import 'antd/dist/antd.css'
 import './App.scss';
@@ -106,13 +107,13 @@ class App extends React.Component{
             component: Mine,
             icon:<UserOutlined/>
         }, 
-        // {
-        //     text: '购物车',
-        //     path: '/cart',
-        //     name: 'cart',
-        //     component: Cart,
-        //     icon:<ShoppingCartOutlined/>
-        // }
+        {
+            text: '添加面试题',
+            path: '/add',
+            name: 'add',
+            component: Add,
+            // icon:<ShoppingCartOutlined/>
+        }
         ],
     
         current: '/home'

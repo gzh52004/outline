@@ -31,31 +31,34 @@ export function withUser(MyComponent){
         //     return <MyComponent {...this.props} userInfo={this.state.userInfo}>
         // }
     // }
-    return function OuterComponent(props){console.log('OuterComponent.props',props)
+    return function OuterComponent(props){console.log('withUser.OuterComponent.props',props)
         // 获取本地存储信息
-        let userInfo = localStorage.getItem('userInfo');
+        let currentUser = localStorage.getItem('currentUser');
         try{
-            userInfo = JSON.parse(userInfo)
+            currentUser = JSON.parse(currentUser)
         }catch(err){
-            userInfo = {}
+            currentUser = {}
         }
-        return <MyComponent {...props} userInfo={userInfo} />
+        console.log('withUser.currentUser',currentUser);
+        return <MyComponent {...props} currentUser={currentUser} />
     }
  }
 
 
 //  用户访问权限高阶组件
+// 需要用户登录后才可访问组件否则跳到登录页面
 export function withAuth(InnerComponent){
     @withUser
     class OuterComponent extends React.Component{
         componentDidMount(){
         }
-        render(){
-            if(this.props.userInfo){
+        render(){console.log('withAuth.props',this.props)
+            const {currentUser,location:{pathname}} = this.props;
+            if(currentUser){
                  // 用户登录后显示内容
                 return <InnerComponent {...this.props} />
             }else{
-                return <Redirect to="/login" />
+                return <Redirect to={"/login?targetUrl="+pathname} />
             }
         }
     }

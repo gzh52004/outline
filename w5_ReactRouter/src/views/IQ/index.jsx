@@ -25,7 +25,7 @@ class IQ extends React.Component{
             data:data.data
         })
     }
-    render(){
+    render(){console.log('IQ.props',this.props);
         const {data} = this.state
         return (
             <div className="iq">

@@ -11,10 +11,9 @@ class Cart extends React.Component{
     render(){
         return(
             <div>
-                Cart
+                添加面试题
             </div>
         )
     }
 }
-// Cart = withAuth(Cart)
 export default Cart;
