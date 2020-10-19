@@ -1,5 +1,5 @@
 import React from 'react';
-
+import CryptoJS from 'crypto-js';console.log('CryptoJS',CryptoJS)
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import request from '@/utils/request';
 
@@ -41,6 +41,8 @@ const rules = {
 const Reg = function (props) {
     const onFinish = async (values) => {
         // 注册
+        values.password = CryptoJS.SHA256(values.password).toString();
+        console.log('加密后=',values);
         const { data } = await request.post('/user/reg', values);
         if (data.status === 200) {
             message.success('注册成功')

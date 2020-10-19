@@ -1,5 +1,5 @@
 import React from 'react';
-
+import SHA256 from 'crypto-js/sha256';console.dir(SHA256)
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import request from '@/utils/request';
 
@@ -21,12 +21,20 @@ const rules = {
 }
 const Login = function (props) {
     console.log('Login.props', props);
-    const onFinish = async (values) => {
+    const onFinish = async (values) => {console.log('加密前=',values)
+        // 把密码通过Crypto进行加密（加密算法：sha256）
+        let {username,password,remember} = values;
+        password = SHA256(values.password).toString()
+       console.log('加密后=',password)
         const { data } = await request.get('/user/login', {
-            params:values
+            params:{
+                username,
+                password,
+                remember
+            }
         });
         if (data.status === 200) {
-            message.success('登录成')
+            message.success('登录成功')
             props.history.push({
                 pathname: '/mine'
             })
