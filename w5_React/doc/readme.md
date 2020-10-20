@@ -537,7 +537,12 @@
         routes:[
             {
                 path:'/mine',
-                children:[{
+                children:[
+                {
+                    path:'',
+                    redirect:'info'
+                },
+                {
                     path:'info',
                     component:Info
                 },{
@@ -549,3 +554,96 @@
     })
 
 ```
+
+
+## day6-2
+
+### 面试题
+* Vue中如何在父组件操作子组件的方法
+    * ref
+    * children
+```js
+    // 子组件触发父组件方法：事件
+    <B v-on:test="parent"></B>
+    this.$emit('test')
+
+    // 父组件触发子组件的方法
+    // ref: 
+    //  * 用在html元素上，则指向这个元素对应的节点
+    //  * 用在组件上，则指向组件对应的实例
+    // 组件层级：this.$parent, this.$children
+    // <A>
+    <B ref="test"></B>
+    // </A>
+
+    // A组件中的代码
+    this.$refs.test.getData()
+```
+
+### 复习
+* 加密解密
+    * 单向加密
+        > 不可逆，但可以暴力破解
+        * 如何应用暴力破解
+            * 限制次数
+            * 多次加密
+            * 不定期修改密码
+        * 算法
+            * md5
+            * sha1
+            * sha256
+            * sha512
+    * 双向加密
+        * 对称
+        * 非对称
+            * 公钥
+            * 私钥
+        * https
+* 嵌套路由
+    > Route组件的嵌套，一般利用props.match进行处理
+    ```js
+        <Route path='/mine' component={Mine}>
+
+        //Mine.jsx
+        <Route path="/mine/info" component={Info}>
+    ```
+* 路由监听
+    > props.history.listen((location,type)=>{
+
+    })
+
+### 知识点
+* 状态管理工具
+    * vuex
+    * redux
+        > 是一个状态管理工具，且可以跟任意的框架进行结合
+        ```js
+            // vuex
+
+        ```
+        * store 仓库（存放共享的数据）
+            * 常用方法
+                * getState()
+                * dispatch()
+            ```js
+                const {createStore} from 'redux';
+                const store = createStore(reducer)
+
+                export default store
+
+            ```
+        * reducer：用户修改数据的方式，需要用户自己编写
+            > Reducer 必须是一个**纯函数**，在redux内部被调用，并传入state和action两个参数，最后返回一个**新的state**
+            * 在reducer中需要做两件事情
+                1. 初始化数据
+                2. 指定数据的修改方式
+        * state： 状态（共享数据）
+            > 状态的改变，会触发使用了这个状态的组件更新
+        * action：动作/命令
+            > 格式：{type:'login'}
+    * 使用redux的步骤
+        1. 创建store
+        2. 定义reducer（初始化数据并指定修改方法）
+        3. 操作redux
+            * 获取state：store.getState()
+            * 修改state: store.dispatch(action)
