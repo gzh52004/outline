@@ -27,6 +27,7 @@
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "crypto-js": "^4.0.0",
     "css-loader": "^5.0.0",
+    "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "sass-loader": "^10.0.3",

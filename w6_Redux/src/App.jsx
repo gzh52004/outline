@@ -15,73 +15,35 @@ import Add from './views/Add'
 import 'antd/dist/antd.css'
 import './App.scss';
 
+import {connect} from 'react-redux'
 
-// let App = (props) => {
-//     console.log('App.props', props);
-//     const menu = [{
-//         text: '首页',
-//         path: '/home',
-//         name: 'home',
-//         component: Home
-//     }, {
-//         text: '登录',
-//         path: '/login',
-//         name: 'login',
-//         component: Login
-//     }, {
-//         text: '注册',
-//         path: '/reg',
-//         name: 'reg',
-//         component: Reg
-//     }, {
-//         text: '我的',
-//         path: '/mine',
-//         name: 'mine',
-//         component: Mine
-//     }, {
-//         text: '购物车',
-//         path: '/cart',
-//         name: 'cart',
-//         component: Cart
-//     }];
+// import store from '@/store'
 
-//     let current = '/home'
+// store.subscribe(()=>{
+//     console.log('statechange=',store.getState())
+// });
 
-//     const changeMenu = ({key})=>{
-//         props.history.push(key);
-//         current = key
-//     }
 
-    
+// mapStateToProp函数用来定义传递什么数据到组件的props
+const mapStateToProps = function(state){
+    console.log('mapStateToProps.state=',state);
+    return state
+}
 
-//     return (
-//         <div>
+const mapDispatchToProps = function(dispatch){
+    return {
+        dispatch,
+        logout(){
+            dispatch({type:'logout'})
+        }
+    }
+}
 
-//             <Menu mode="horizontal" theme="dark" onClick={changeMenu} selectedKeys={[current]}>
-//                 {
-//                     menu.map(item => <Menu.Item key={item.path}>{item.text}</Menu.Item>)
-//                 }
-//             </Menu>
-//             <Switch>
-//                 {/* <Route path='/home' component={Home} />
-//                     <Route path='/login' component={Login} />
-//                     <Route path='/reg' component={Reg} />
-//                     <Route path='/mine' component={Mine} /> */}
-//                 {
-//                     menu.map(item => <Route key={item.name} path={item.path} component={item.component} />)
-//                 }
-//                 <Route path="/notfound" render={() => <div>404</div>} />
-//                 <Redirect from='/' to='/home' exact />
-//                 <Redirect to="/notfound" />
-//             </Switch>
-//         </div>
-//     )
-// }
-// App = withRouter(App)
-
+@connect(mapStateToProps,mapDispatchToProps)
 @withRouter
 class App extends React.Component{
     state = {
+        // isLogin:store.getState().isLogin,
         menu: [{
             text: '首页',
             path: '/home',
@@ -89,17 +51,6 @@ class App extends React.Component{
             component: Home,
             icon:<HomeOutlined/>
         }, 
-        // {
-        //     text: '登录',
-        //     path: '/login',
-        //     name: 'login',
-        //     component: Login
-        // }, {
-        //     text: '注册',
-        //     path: '/reg',
-        //     name: 'reg',
-        //     component: Reg
-        // }, 
         {
             text: '我的',
             path: '/mine',
@@ -134,8 +85,18 @@ class App extends React.Component{
             current:pathname
         })
     }
+    componentDidMount(){
+        // store.subscribe(()=>{
+        //     console.log('statechange=',store.getState())
+        //     // this.setState({
+        //     //     isLogin:store.getState().isLogin
+        //     // })
+        // });
+    }
     render(){console.log('App.props',this.props);
         const {menu,current} = this.state;
+        // const currentState = store.getState(); 
+        const {isLogin,dispatch,logout} = this.props;
         return (
             <div>
                 <Row style={{backgroundColor:'#001529',lineHeight:'46px'}}>
@@ -151,8 +112,18 @@ class App extends React.Component{
                     </Menu>
                     </Col>
                     <Col span={6} style={{textAlign:'right'}}>
-                        <Button type="link" onClick={this.goto.bind(this,'/reg')}>注册</Button>
-                        <Button type="link" onClick={this.goto.bind(this,'/login')}>登录</Button>
+                        {
+                            isLogin ? 
+                            <Button type="link" onClick={()=>{
+                                // dispatch({type:'logout'})
+                                logout()
+                            }}>退出</Button>
+                            :
+                            <>
+                                <Button type="link" onClick={this.goto.bind(this,'/reg')}>注册</Button>
+                                <Button type="link" onClick={this.goto.bind(this,'/login')}>登录</Button>
+                            </>
+                        }
                     </Col>
                 </Row>
                 <Layout.Content style={{padding:10}}>
@@ -178,5 +149,7 @@ class App extends React.Component{
 }
 
 
+
+// App = connect(mapStateToProps,mapDispatchToProps)(App)
 
 export default App

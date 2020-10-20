@@ -3,10 +3,12 @@ import SHA256 from 'crypto-js/sha256';console.dir(SHA256)
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import request from '@/utils/request';
 
+import {connect} from 'react-redux';
+
 // 使用redux
-import store from '@/store';
-console.log('store=',store)
-console.log('state=',store.getState())
+// import store from '@/store';
+// console.log('store=',store)
+// console.log('state=',store.getState())
 
 const layout = {
     labelCol: { span: 6 },
@@ -24,7 +26,7 @@ const rules = {
         { required: true, message: '密码不能为空' },
     ]
 }
-const Login = function (props) {
+let Login = function (props) {
     console.log('Login.props', props);
     const onFinish = async (values) => {console.log('加密前=',values)
         // 把密码通过Crypto进行加密（加密算法：sha256）
@@ -39,16 +41,18 @@ const Login = function (props) {
             }
         });
         if (data.status === 200) {
-            if(values.remember){
-                localStorage.setItem('currentUser',JSON.stringify(data.data))
-            }else{
-                sessionStorage.setItem('currentUser',JSON.stringify(data.data))
-            }
+            // if(values.remember){
+            //     localStorage.setItem('currentUser',JSON.stringify(data.data))
+            // }else{
+            //     sessionStorage.setItem('currentUser',JSON.stringify(data.data))
+            // }
 
             // 把用户信息存入redux
-            const action = {type:'login',user:data.data}
-            store.dispatch(action);
-            console.log('newState=',store.getState())
+            // const action = {type:'login',user:data.data}
+            // store.dispatch(action);
+            // console.log('newState=',store.getState())
+
+            props.dispatch({type:'login',user:data.data})
 
             message.success('登录成功')
             // 提取目标地址
@@ -108,5 +112,7 @@ const Login = function (props) {
         </div>
     )
 }
+
+Login = connect()(Login)
 
 export default Login;

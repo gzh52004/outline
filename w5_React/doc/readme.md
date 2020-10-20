@@ -579,6 +579,81 @@
     // A组件中的代码
     this.$refs.test.getData()
 ```
+* 常用http请求状态码
+    * 2xx   成功 -> 
+        * 200   ok
+        * 201   创建成功
+    * 3xx   
+        * 301   永久重定向
+        * 302   临时重定向
+        * 304   协商缓存
+    * 4xx
+        * 401   无权限
+        * 402   需要付费导致的无权限
+        * 403   禁止访问
+        * 404   找不到页面
+    * 5xx   服务器错误导致
+        * 500   
+* 用async&await如何获取Promise状态为rejected时的数据
+    ```js
+        const pro = new Promise((resolve,reject)=>{
+            const data = ajax();
+            if(data.code === 1){
+                resolve(data)
+            }else{
+                reject('错误数据')
+            }
+        });
+
+        // pro.then(()=>{},()=>{}).catch(()=>{})
+        try{
+            // const data = JSON.parse(json)
+            const data = await pro;
+        }catch(errData){
+            console.log(errData)
+        }
+    ```
+* 如何避免js文件过大而影响页面渲染速度的问题
+    ```js
+        // main.js  5m大小
+        // script属性
+        // type,src,
+        // defer    等待js文件下载完成且html渲染完成后才执行js代码
+        // async    js下载完成后立即执行（不管html页面是否渲染完成）
+        <html>
+            <head>
+                <title>
+                <style>
+                <script src="main.js" async></script>
+            </head>
+            <body>
+                界面
+            </body>
+        </html>
+
+    ```
+* 服务器渲染与客户端渲染的区别
+    * 服务器渲染：SSR（Server Side Rendering）
+        > 所有的页面结构在服务器生成后再响应到客户端渲染
+        * 优势
+            * 速度快
+            * SEO
+        * 页面渲染步骤
+            1. 请求服务器，响应index.html文件（在服务端生成完整个html结构）
+            2. 浏览器渲染index.html文件
+    * 客户端渲染：BSR（Browser Side Rndering）
+        * ajax与前后端分类
+        * 优势
+            * 前后端分离，更好的分工与迭代
+            * 用户体验更好，更根据用户的行为加载不同的数据
+        * 页面渲染步骤
+            1. 请求服务器，响应index.html文件（内有内容的文件）
+            2. 浏览器渲染index.html文件，并下载js文件
+            3. 浏览器执行js代码，发起ajax请求
+            4. 数据请求回来后，在客户端生成html结构并渲染到页面
+    ```js
+
+    ```
 
 ### 复习
 * 加密解密
@@ -647,3 +722,77 @@
         3. 操作redux
             * 获取state：store.getState()
             * 修改state: store.dispatch(action)
+
+
+        ```js
+            /**
+             * 核心概念
+                * store
+                    > 仓库
+                    * 常用方法
+                        * getState()
+                        * dispatch()
+                * reducer
+                    > 一个纯函数，用于定义state初始值并指定修改state的方式，且必须返回一个新的state
+                * state
+                    > 共享的数据
+                * action    动作/命令
+                    > 格式：{type:'xx'}
+            */ 
+            
+            // 使用redux步骤
+            import {createStore} from 'redux';
+
+            // 2. 定义reducer
+            // 定义state初始值并指定修改state的方式
+            const reducer = function(state,action){
+                // 根据action.type进行不同的操作
+                switch(action.type){
+                    case 'login':
+                        return 
+                        
+                }
+            }
+
+            // 1. 创建store
+            const store = createStore(reducer)
+
+            export default store;
+
+            // 3. 操作state
+            // 获取：store.getState()
+            // 修改：store.dispatch(action)
+            // 监听: store.subscribe(fn)
+
+        ```
+* redux与react是两个独立产品
+    * react组件什么情况下会刷新
+        * state修改
+        * props修改
+        * 强制刷新
+        * 父组件刷新
+* react-redux
+    > 一个桥接工具，用于连接React组件与redux数据
+    * 原理
+        * Context
+            > 封装一个`Provider`组件给子组件共享数据
+            
+        * 高阶组件
+            > 利用高阶组件定义传入组件的数据
+    * 使用步骤
+        1. 利用Provider共享store
+            ```js
+                import {Provider} from 'react-redux';
+                <Provider store={store}>
+
+                </Provider>
+            ```
+        2. 利用`connect`高阶组件定义传入组件的数据
+            ```js
+                let App  = function(props){}
+                
+                // mapStateToProps： 用于获取state
+                // mapDispatchToProp: 用于修改state
+                App = connect(mapStateToProps,mapDispatchToProps)(App)
+            ```
+* redux数据持久化
