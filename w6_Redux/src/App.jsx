@@ -16,6 +16,7 @@ import 'antd/dist/antd.css'
 import './App.scss';
 
 import {connect} from 'react-redux'
+import userAction from '@/store/actions/user'
 
 // import store from '@/store'
 
@@ -27,14 +28,18 @@ import {connect} from 'react-redux'
 // mapStateToProp函数用来定义传递什么数据到组件的props
 const mapStateToProps = function(state){
     console.log('mapStateToProps.state=',state);
-    return state
+    return {
+        isLogin:state.user.isLogin,
+        currentUser:state.user.currentUser
+    }
 }
 
 const mapDispatchToProps = function(dispatch){
     return {
         dispatch,
         logout(){
-            dispatch({type:'logout'})
+            // dispatch({type:'logout'})
+            dispatch(userAction.logout())
         }
     }
 }

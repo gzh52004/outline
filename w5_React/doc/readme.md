@@ -822,6 +822,26 @@
     * Object.assign({},obj1,obj2)
     * jQuery.extend()
     * _.merge
+* hash路由的原理
+    * window下的hashchange事件
+* 有哪些模块化开发规范
+    * commonJS  nodeJS          后端、同步
+    * AMD       require.js            异步
+    * CMD       sea.js                异步
+    * ESModule  ES6                   同步、静态引入
+    ```js
+        const moduleName = 'fs'
+        const fs = require(moduleName);
+        fs.readFile()
+
+        require(['jquery'],($)=>{
+
+        })
+
+        // ESModule为静态引入
+        import React from 'react'
+        React.createElement()
+    ```
 
 ### 复习
 * redux
@@ -880,3 +900,8 @@
 ```js
     import {createStore} from 'redux'
 ```
+
+* redux模块化：reducer模块化
+    > combineReducers
+* Action Creator
+    > 解决action容易写错的问题，一个用来生成action的函数

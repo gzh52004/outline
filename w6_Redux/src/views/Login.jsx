@@ -2,8 +2,9 @@ import React from 'react';
 import SHA256 from 'crypto-js/sha256';console.dir(SHA256)
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import request from '@/utils/request';
-
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import userAction from '../store/actions/user'
 
 // 使用redux
 // import store from '@/store';
@@ -52,7 +53,7 @@ let Login = function (props) {
             // store.dispatch(action);
             // console.log('newState=',store.getState())
 
-            props.dispatch({type:'login',user:data.data})
+            props.login(data.data);
 
             message.success('登录成功')
             // 提取目标地址
@@ -113,6 +114,23 @@ let Login = function (props) {
     )
 }
 
-Login = connect()(Login)
+const mapStateToProps = state=>{
+    return {
+
+    }
+}
+const mapDispatchToProps = dispatch=>{
+    // return {
+    //     login(user){
+    //         // dispatch({type:'login',user})
+    //         dispatch(userAction.login(user))
+    //     },
+    //     logout(){
+    //         dispatch(userAction.logout())
+    //     }
+    // }
+    return bindActionCreators(userAction,dispatch)
+}
+Login = connect(mapStateToProps,mapDispatchToProps)(Login)
 
 export default Login;

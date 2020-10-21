@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash路由的原理</title>
+</head>
+<body>
+    <h1>Hash路由的原理</h1>
+    <div id="app"></div>
+    <script>
+        /**
+         * Hash路由的原理
+            * window.onhashchange
+            * window.location.hash
+         */
+        const app = document.querySelector('#app');
+        const routes = [{
+            path:'/home',
+            component:`<div class="home">Home</div>`
+        },{
+            path:'/login',
+            component:`<div class="login">Login</div>`
+        },{
+            path:'/reg',
+            component:`<div class="reg">Reg</div>`
+        }]
+
+        
+        goto();
+
+        window.onhashchange = function(){
+            // 获取当前hash值
+            goto()
+        }
+
+        function goto(){
+            const hash = window.location.hash.replace(/^#/,'');
+            console.log('hash=',hash);
+            const currentRoute = routes.filter(item=>item.path===hash)[0]
+            app.innerHTML = currentRoute.component;
+        }
+    </script>
+</body>
+</html>
