@@ -796,3 +796,87 @@
                 App = connect(mapStateToProps,mapDispatchToProps)(App)
             ```
 * redux数据持久化
+
+
+## day6-3
+
+### 面试题
+* 箭头函数与普通函数的区别
+    * 作用域
+        * 全局作用域
+        * 局部作用域
+        * 块级作用域
+    * 不同点
+        * 箭头函数中没有this，它指向最近的非箭头函数所在的作用域
+            * 普通函数this指向
+                * new get() : this指向实例
+                * xxx.get() : this指向调用函数的对象
+                * get()     : this指向window
+        * 不能new
+        * 内部不能使用arguments
+        * 箭头函数可以简写
+            * 只有一个参数时简写括号
+            * 只有一行代码时可以简写花括号和return
+* 如何合并两个对象
+    * {...obj1,...obj2}
+    * Object.assign({},obj1,obj2)
+    * jQuery.extend()
+    * _.merge
+
+### 复习
+* redux
+    * 核心概念
+        * store
+            * 常用方法
+                * getState()
+                * dispatch()
+                * subscribe()
+        * reducer
+            * 一个用于指定初始state和state的修改方式是的纯函数，接收state与action参数，必须返回一个新的state
+        * state
+        * action
+            > 格式：{type}，调用方式`store.dispatch(action)`
+    * 使用步骤
+        1. 创建store
+        ```js
+            import {createStore} from 'redux'
+            const store = createStore(reducer);
+            export default store
+        ```
+        2. 定义reducer
+        ```js
+            const initState = {}
+            const reducer = function(state=initState,action){
+                // reducer内不能修改state，只能返回一个新的state
+                switch(action.type){
+                    case 'login':
+                        const newState = {
+                            ...state,
+                            currentUser:action.user
+                        }
+                        return newState;
+
+                }
+                return state;
+            }
+        ```
+        3. 操作
+            * 获取：store.getState()
+            * 修改：store.dispatch(action)
+            * 监听：store.subscribe(fn)
+    * Redux设计和使用的三项基本原则
+        1. 唯一数据源：store是必须是唯一的
+        2. 只有store能改变自己的内容：store.dispatch()
+        3. Reducer必须是一个纯函数
+* react-redux
+    > 原理：利用Context共享数据，并通过高阶组件把state数组传入组件的props
+    * 数据共享：Context
+    * 组件刷新：connect
+        > props更新会触发组件刷新
+
+
+### 知识点
+* 实现简单版redux
+```js
+    import {createStore} from 'redux'
+```
