@@ -905,3 +905,112 @@
     > combineReducers
 * Action Creator
     > 解决action容易写错的问题，一个用来生成action的函数
+
+## day6-4
+
+### 面试题
+* 字符串如何转对象
+    * json：规范
+        * json字符串：符合json规范的字符串
+        * json对象：符合json规范的js对象
+    * js对象
+    * json规范
+        * 属性必须使用双引号
+        * 字符串必须使用双引号
+        * 属性值只能为以下类型
+            * String
+            * Number
+            * Boolean
+            * Null
+            * Array
+            * Object
+        * 不能有注释
+        * 不能有多余的逗号
+    ```js
+        // json字符串->对象
+        const = data = '{"username":"laoxie","password":123456}';
+        const obj1 = JSON.parse(data);
+
+        const str = 'h52004';
+        const obj2 = new String(str);
+        str.length;//6
+        obj2.length;//6
+
+        const obj3 = {username:"laoxie",password:123456}; //js对象,json,json对象
+    ```
+* 字符串为什么能跟对象一样使用点语法
+    > js中一切皆对象
+    ```js
+        const obj2 = new String('abc')
+        obj2.length;//3
+
+        const str = 'h52004';
+        str.length;//6
+        str.toUperCase();
+
+        // str.length内部执行过程
+        // 1. 临时创建对象var str = new String(str)
+        // 2. 读取临时对象的属性str.length
+        // 3. 删除临时对象
+    ```
+* vue组件局部样式的原理
+    > 添加scoped属性后，编译时会自动给**当前组件的所有html元素**添加一个自定义属性（data-v-[hash]）,并利用css属性选择器匹配该元素，从而达到自由当前组件的元素才能应用样式
+    ```vue
+        // home.vue
+        <template>
+            <div class="home">
+                <button>点我</button>
+            </div>
+        </template>
+        <script></script>
+        <style scoped>
+            button{color:#58bc58}
+        </style>
+
+    ```
+
+### 复习
+* redux源码
+* redux模块化
+    > 细分reducer
+* Action Creator
+* redux调试
+
+### 知识点
+* redux中间件
+    ```js
+        // nodeJS中间件
+        // urlencoded,json,formData
+        Route.post('/addgoods',express.json(),(req,res)=>{
+            req.body
+        })
+
+    ```
+    * redux-saga
+        * 生成器函数Generator
+            > 注意：执行生成器函数并不会执行函数中的代码，而是返回一个迭代器
+            
+            * 定义函数时添加星号: *
+            * 作用：用来生成迭代器
+            * 在生成器函数中除了能使用return, 还可以使用yield
+        * 迭代器Iterator
+            > 内部包含多个值的对象，要获取迭代器中的值，必须调用`next()`方法，没调用一次next就是一次迭代，next方法的返回值格式：{value,done}
+                * value：每一次迭代返回的值
+                * done: 标识迭代器是否迭代完成
+            * for/for...in
+            * for...of  能遍历具有迭代器的数据
+                > 不断执行迭代器的next()方法，直到迭代完成
+
+        ```js
+            function * create(){
+                console.log('start')
+                yield 10;
+                console.log(1)
+                yield 50;   // 暂停并返回
+                console.log(2)
+                return 100; //结束并返回
+                console.log(3)
+            }
+
+            create();// undefined,100,Promise对象,Iterator
+        ```

@@ -1,4 +1,4 @@
-export function createStore(reducer){
+export function createStore(reducer,initState,middleware){
     let state = reducer();
     const listener = []
 
