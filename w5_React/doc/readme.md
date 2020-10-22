@@ -989,7 +989,6 @@
     * redux-saga
         * 生成器函数Generator
             > 注意：执行生成器函数并不会执行函数中的代码，而是返回一个迭代器
-            
             * 定义函数时添加星号: *
             * 作用：用来生成迭代器
             * 在生成器函数中除了能使用return, 还可以使用yield
@@ -1000,17 +999,55 @@
             * for/for...in
             * for...of  能遍历具有迭代器的数据
                 > 不断执行迭代器的next()方法，直到迭代完成
+            ```js
+                function * create(){
+                    console.log('start')
+                    //ajax().then(res=>{
+                        yield 10;
+                    //})
+                    console.log(1)
+                    yield 50;   // 暂停并返回
+                    console.log(2)
+                    return 100; //结束并返回
+                    console.log(3)
+                }
+                create();// undefined,100,Promise对象,Iterator
+            ```
 
-        ```js
-            function * create(){
-                console.log('start')
-                yield 10;
-                console.log(1)
-                yield 50;   // 暂停并返回
-                console.log(2)
-                return 100; //结束并返回
-                console.log(3)
-            }
+        * 使用redux-saga的步骤
+            1. 引入saga
+            ```js
+                import createSagaMiddleware from 'redux-saga';
+            ```
+            
+            2. 创建saga中间件
+            ```js
+                const sagaMiddleware = createSagaMiddleware();
+            ```
 
-            create();// undefined,100,Promise对象,Iterator
-        ```
+            3. 将 sagaMiddleware 连接至 Store
+            ```js
+                import {createStore,applyMiddleware} from 'redux';
+                let enhancer = applyMiddleware(sagaMiddleware)
+                const store = createStore(reducer,enhancer)
+            ```
+
+            4. 引入并运行自定义Saga配置（自己编写）
+            ```js
+                import rootSaga from './middleware/saga';
+                sagaMiddleware.run(rootSaga);
+            ```
+        * saga配置
+            ```js
+                // mutaition
+                this.$store.commit({type:'login',user})
+
+                // VueX中d的actions执行过程
+                this.$store.dispatch({type:'login_async'})
+                ///ajax().then(res=>{
+                //    store.commit({type:'login',user:res.data})
+                //})
+
+                // 必须等ajax请求返回后才执行dispatch
+                dispatch({type:'login',user})
+            ```

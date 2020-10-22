@@ -29,11 +29,18 @@ const rules = {
 }
 let Login = function (props) {
     console.log('Login.props', props);
+    
     const onFinish = async (values) => {console.log('加密前=',values)
+        
         // 把密码通过Crypto进行加密（加密算法：sha256）
         let {username,password,remember} = values;
         password = SHA256(values.password).toString()
        console.log('加密后=',password)
+
+
+       return props.dispatch({type:'login_async',data:{username,password,remember}})
+
+
         const { data } = await request.get('/user/login', {
             params:{
                 username,
@@ -120,16 +127,17 @@ const mapStateToProps = state=>{
     }
 }
 const mapDispatchToProps = dispatch=>{
-    // return {
-    //     login(user){
-    //         // dispatch({type:'login',user})
-    //         dispatch(userAction.login(user))
-    //     },
-    //     logout(){
-    //         dispatch(userAction.logout())
-    //     }
-    // }
-    return bindActionCreators(userAction,dispatch)
+    return {
+        dispatch,
+        login(user){
+            // dispatch({type:'login',user})
+            dispatch(userAction.login(user))
+        },
+        logout(){
+            dispatch(userAction.logout())
+        }
+    }
+    // return bindActionCreators(userAction,dispatch)
 }
 Login = connect(mapStateToProps,mapDispatchToProps)(Login)
 
