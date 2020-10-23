@@ -1051,3 +1051,31 @@
                 // 必须等ajax请求返回后才执行dispatch
                 dispatch({type:'login',user})
             ```
+
+## day6-5
+
+### 面试题
+* 使用context步骤
+    1. 创建
+    2. 父组件共享数据
+    3. 子组件接收
+        1. Consumer
+        2. contextType
+* React类组件与函数组件的区别
+    * state
+    * 生命周期函数
+
+
+### 知识点
+* Hook
+    > Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。**注意：Hook只能在函数组件中使用**
+    * 常用hook
+        * useState
+        ```js
+            const [state,changeState] = useState(1)
+        ```    
+    * useEffect 
+        * 标准用法
+        * 添加依赖
+        * 空依赖
+        * 返回一个函数
