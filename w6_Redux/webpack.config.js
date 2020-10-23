@@ -3,9 +3,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry:'./src/index.jsx',
-    // output:{
-
-    // },
+    output:{
+        // 编译后文件保存的目录
+        path:path.resolve('./dist'),
+        filename:'js/[name]-[hash:5]-bundle.js',
+        publicPath:'/public'
+    },
     devServer:{
         host:'0.0.0.0',
         contentBase: path.join(__dirname,'./public'),
@@ -35,6 +38,10 @@ module.exports = {
                             plugins:[
                                 ['@babel/plugin-proposal-decorators',{legacy: true}],
                                 ['@babel/plugin-proposal-class-properties',{loose:true}],
+                               
+                                // antd按需加载
+                                ["import", { libraryName: "antd", style: "css" },'antd'],
+                                ["import", { libraryName: "antd-mobile", style: "css" },'antdm'] 
                             ]
                         }
                     }
