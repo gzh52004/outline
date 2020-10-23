@@ -31,10 +31,10 @@ function UseEffect() {
     // 用法4：返回一个函数
     // 替代类组件中componentUnmount生命周期函数
     useEffect(function () {
-        console.log('带返回值')
+        console.log('ajax')
         return function(){
             //  这里的代码在组件被销毁时执行
-            console.log('销毁')
+            console.log('cancel ajax')
         }
     },[]);
 

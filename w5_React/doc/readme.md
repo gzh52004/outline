@@ -1061,21 +1061,44 @@
     3. 子组件接收
         1. Consumer
         2. contextType
+        3. useContext
 * React类组件与函数组件的区别
     * state
     * 生命周期函数
+* 常用指令
+    * v-bind,v-on,v-model,v-show,v-if/v-else,v-for,v-text,v-html,v-once,v-cloak
+* v-model的替代方案
+    * v-bind:value  
+    * v-on:input
+    ```js
+        <MyComponent v-model="qty"></MyContext>
+        <MyComponent v-bind:value="qty" v-on:input=""></MyContext>
+        this.$emit('input')
+
+        // 修饰符
+        v-on:keyup.13=""
+    ```
 
 
 ### 知识点
 * Hook
-    > Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。**注意：Hook只能在函数组件中使用**
+    > Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。**注意：Hook只能在函数组件后其他Hook中使用**
     * 常用hook
         * useState
         ```js
             const [state,changeState] = useState(1)
         ```    
-    * useEffect 
-        * 标准用法
-        * 添加依赖
-        * 空依赖
-        * 返回一个函数
+        * useEffect 
+            * 标准用法
+            * 添加依赖
+            * 空依赖
+            * 返回一个函数
+
+        * useMemo
+        * useCallback
+        * useContext
+        * useReducer
+    * 应用
+        * 利用useContext+useReducer实现redux的功能
+* 使用Hook注意事项
+    * 函数组件每次更新都会从上往下执行完内部所有的代码
