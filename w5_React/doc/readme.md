@@ -1101,4 +1101,59 @@
     * 应用
         * 利用useContext+useReducer实现redux的功能
 * 使用Hook注意事项
+    * 只能在函数组件或其他hook中使用
     * 函数组件每次更新都会从上往下执行完内部所有的代码
+    * 不要在循环，条件或嵌套函数中调用 Hook， 确保总是在你的 React 函数的最顶层调用他们
+    ```js
+        // useEffect
+        // useLayoutEffect 是useEffect的同步版本
+
+        function(){
+            useEffect(function(){
+                // 这里的代码渲染结束后执行
+            },[]);
+            useLayoutEffect(function(){
+                // 这里的代码在渲染前执行
+            });
+            return <div>
+            
+            </div>
+        }
+
+    ```
+* 自定义Hook
+    ```js
+        let currentUser = location.getItem('currentUser')
+        try{
+            currentUser = JSON.parse(currentUser) || {}
+        }catch(err){
+            currentUser = {}
+        }
+
+        function useStorage(key){
+            let value = localStorage.getItem(key)
+            try{
+                value = JSON.parse(value)
+            }catch(err){
+                value = value
+            }
+
+            const change = function(newValue){
+                if(typeof newValue === 'object'){
+                    newValue = JSON.stringify(newValue)
+                }
+                localStorage.setItem(key,newValue);
+            }
+
+            return [value,change]
+        }
+
+        function Home(){
+            const [currentUser,setUser] = useStorage('currentUser')
+
+            setUser({})
+            return (
+                <div>App</div>
+            )
+        }
+    ```

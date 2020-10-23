@@ -6,6 +6,7 @@ import UseMemo from  './UseMemo'
 import UseCallback from  './UseCallback'
 import UseContext from  './UseContext'
 import UseReducer from  './UseReducer'
+import MyHook from  './MyHook'
 
 import MyContext from './context'
 
@@ -36,6 +37,7 @@ function Hook(){
                 <UseCallback/>
                 <UseContext/>
                 <UseReducer/>
+                <MyHook/>
             </div>
 
         // </MyContext.Provider>
