@@ -1,16 +1,25 @@
-import React from 'react';
+import React,{Suspense, lazy} from 'react';
 
 import { Route, Redirect, Switch, Link, NavLink, withRouter } from 'react-router-dom';
 import {HomeOutlined,UserOutlined,ShoppingCartOutlined} from '@ant-design/icons'
 
 import { Layout,Menu,Row,Col,Button } from 'antd';
 
-import Home from './views/Home'
-import Login from './views/Login'
-import Reg from './views/Reg'
-import Mine from './views/Mine'
-import IQ from './views/IQ'
-import Add from './views/Add'
+// import Home from './views/Home'
+// import Login from './views/Login'
+// import Reg from './views/Reg'
+// import Mine from './views/Mine'
+// import IQ from './views/IQ'
+// import Add from './views/Add'
+
+const Home = lazy(function(){
+    return import('./views/Home')
+});
+const Mine = lazy(() => import("./views/Mine"));
+const Login = lazy(() => import("./views/Login"));
+const Reg = lazy(() => import("./views/Reg"));
+const IQ = lazy(() => import("./views/IQ"));
+const Add = lazy(() => import("./views/Add"));
 
 import 'antd/dist/antd.css'
 import './App.scss';
@@ -132,21 +141,23 @@ class App extends React.Component{
                     </Col>
                 </Row>
                 <Layout.Content style={{padding:10}}>
-                <Switch>
-                    {/* <Route path='/home' component={Home} />
+                <Suspense fallback={<div>loading...</div>}>
+                    <Switch>
+                        {/* <Route path='/home' component={Home} />
+                            <Route path='/login' component={Login} />
+                            <Route path='/reg' component={Reg} />
+                            <Route path='/mine' component={Mine} /> */}
+                        {
+                            menu.map(item => <Route key={item.name} path={item.path} component={item.component} />)
+                        }
+                        <Route path='/iq/:id' component={IQ} />
                         <Route path='/login' component={Login} />
                         <Route path='/reg' component={Reg} />
-                        <Route path='/mine' component={Mine} /> */}
-                    {
-                        menu.map(item => <Route key={item.name} path={item.path} component={item.component} />)
-                    }
-                    <Route path='/iq/:id' component={IQ} />
-                    <Route path='/login' component={Login} />
-                    <Route path='/reg' component={Reg} />
-                    <Route path="/notfound" render={() => <div>404</div>} />
-                    <Redirect from='/' to='/home' exact />
-                    <Redirect to="/notfound" />
-                </Switch>
+                        <Route path="/notfound" render={() => <div>404</div>} />
+                        <Redirect from='/' to='/home' exact />
+                        <Redirect to="/notfound" />
+                    </Switch>
+                </Suspense>
                 </Layout.Content>
             </div>
         )

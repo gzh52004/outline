@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/list/list",
+    "pages/mine/mine"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#58bc58",
+    "navigationBarTitleText": "班级管理系统",
+    "navigationBarTextStyle": "white",
+    "backgroundColor":"#ccc"
+  },
+  "tabBar":{
+    "color":"#333",
+    "selectedColor":"#ff00cc",
+    "position":"top",
+    "list":[{
+      "pagePath":"pages/index/index",
+      "text":"首页",
+      "iconPath":"/img/home.png",
+      "selectedIconPath":"/img/home_active.png"
+    },{
+      "pagePath":"pages/list/list",
+      "text":"列表",
+      "iconPath":"/img/list.png",
+      "selectedIconPath":"/img/list_active.png"
+    },{
+      "pagePath":"pages/mine/mine",
+      "text":"我的",
+      "iconPath":"/img/mine.png",
+      "selectedIconPath":"/img/mine_active.png"
+    }]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

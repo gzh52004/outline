@@ -1,0 +1,17 @@
+<view>
+  <view class="body">
+    <swiper autoplay indicator-dots>
+          <swiper-item wx:for="{{recommend}}" key="id">
+            <view class="swiper-item" bind:tap="goto" data-url="{{item.link}}">{{index}} - {{item.text}}</view>
+            <text wx:for="{{item.list}}" wx:for-item="it" wx:for-index="idx">{{it}}</text>
+          </swiper-item>
+      </swiper>
+      <view class="login">
+         <input auto-focus placeholder="用户名" value="{{user.username}}" bind:input="changeUsername"/>
+         <input password placeholder="密码" value="{{user.password}}"
+         model:value="{{password}}"
+         />
+        <button type="primary" bind:tap="login" data-username="laoxie">登录</button>
+      </view>
+  </view>
+</view>

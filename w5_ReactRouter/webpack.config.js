@@ -8,7 +8,7 @@ module.exports = {
     // },
     devServer:{
         contentBase: path.join(__dirname,'./public'),
-        port:2004
+        port:2004,
     },
 
     resolve:{

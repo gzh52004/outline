@@ -41,7 +41,7 @@ module.exports = {
                                
                                 // antd按需加载
                                 ["import", { libraryName: "antd", style: "css" },'antd'],
-                                ["import", { libraryName: "antd-mobile", style: "css" },'antdm'] 
+                                // ["import", { libraryName: "antd-mobile", style: "css" },'antdm'] 
                             ]
                         }
                     }
