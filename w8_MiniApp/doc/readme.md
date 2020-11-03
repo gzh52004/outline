@@ -1,4 +1,6 @@
-## 小程序
+# 小程序
+
+## day8-1
 
 ### 介绍
 
@@ -69,3 +71,83 @@
 
     * 页面栈（浏览记录）
         > ['/home']
+
+## day8-2
+
+### 复习
+* 文件类型
+    * json配置文件
+        * app.json              全局配置
+        * project.config.json   项目配置
+        * sitemap.json          
+        * 页面配置文件
+    * wxml结构文件
+        * 内置组件
+        * 自定义组件
+    * wxss样式文件
+        * rpx
+        * 支持选择器
+    * js逻辑文件
+        * app.js                全局文件
+            > App(options)
+        * [page].js               页面级别文件
+            > Page(options)
+            * data  页面初始化数据
+                * this.setData()
+* 数据绑定
+    * 单向绑定：{{}}
+    * 双向绑定：
+        * 单向+事件
+        * model:value
+* 事件绑定
+    > 所有的手势都来自于touch事件（touchstart,touchmove,touchend）
+    * bind      冒泡
+    * catch     阻止传播
+        * tap   手势
+    * 捕获事件:capture-*
+        > capture-bind:tap, capture-catch:tap
+    * 事件对象：event
+        * 给事件处理函数传参：自定义属性（data-*）
+            > event.currentTarget.dataset
+* 列表渲染：
+    * wx:for
+        * item
+        * index
+    * wx:key
+        * 属性名
+        * *this
+    * wx:for-item   修改item名称
+    * wx:for-index  修改索引名称
+* 条件渲染
+    * wx:if
+    * wx:else
+    * wx:elif
+    * hidden
+        > hidden与wx:if的区别就像vue中v-show与v-if的区别
+
+    ```js
+        <view wx:if="{{show}}">true</view>
+        <view wx:else>flase</view>
+
+        <view hidden="{{show}}">true</view>
+    ```
+
+* tabBar页面与非tabBar页面
+* 路由（页面跳转）
+    * 声明式导航
+    * 编程式导航
+        wx.xxx
+
+### 知识点
+* ui框架
+    * weui-miniprogram
+    * vant-weapp
+* 在小程序中使用npm模块
+    > 虽然在小程序中能使用第三方模块，但第三方模块会导致打包后的文件过大，所以谨慎使用
+    1. 安装模块（一定需要有package.json文件）
+    2. 构建npm
+        > 在项目根目录生成`miniprogram_npm`目录
+* 在小程序发起ajax
+    * wx.request()
+    * 二次封装
+* 滚动加载（懒加载）

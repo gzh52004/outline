@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"enhance": false,
 		"postcss": true,
@@ -66,9 +66,17 @@
 			"current": -1,
 			"list": [
 				{
+					"id": 0,
+					"name": "list",
+					"pathName": "pages/list/list",
+					"query": "",
+					"scene": null
+				},
+				{
 					"id": -1,
-					"name": "mine",
-					"pathName": "pages/mine/mine",
+					"name": "班级详情",
+					"pathName": "pages/class/class",
+					"query": "classid=5f6afe8ea981d4c9a74e17e1",
 					"scene": null
 				}
 			]

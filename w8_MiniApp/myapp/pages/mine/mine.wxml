@@ -1,9 +1,9 @@
 <view>
   <view class="body">
     <swiper autoplay indicator-dots>
-          <swiper-item wx:for="{{recommend}}" key="id">
+          <swiper-item wx:for="{{recommend}}" wx:key="id">
             <view class="swiper-item" bind:tap="goto" data-url="{{item.link}}">{{index}} - {{item.text}}</view>
-            <text wx:for="{{item.list}}" wx:for-item="it" wx:for-index="idx">{{it}}</text>
+            <text wx:key="*this" wx:for="{{item.list}}" wx:for-item="it" wx:for-index="idx">{{it}}</text>
           </swiper-item>
       </swiper>
       <view class="login">

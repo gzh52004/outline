@@ -4,51 +4,39 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    classList:[]
+   
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
+  
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
+    console.log('onLoad');
+    
+    // 请求班级数据
+    wx.request({
+      url:'http://120.76.247.5:2020/api/class',
+      success:(res)=>{
+        const {data:{data}} = res;
+        console.log('res=',data.result);
+
         this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+          classList:data.result
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    })
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+  onReady(){
+    console.log('onReady')
+  },
+  onShow(){
+    console.log('onShow')
+  },
+  onHide(){
+    console.log('onHide')
+  },
+  gotoClass(e){
+    const {classid} = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: '/pages/class/class?classid='+classid,
     })
   }
 })

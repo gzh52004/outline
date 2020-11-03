@@ -1,4 +1,8 @@
 // pages/mine/mine.js
+const app = getApp();
+
+console.log('app=',app);
+
 Page({
 
   /**

@@ -35,5 +35,24 @@ App({
   },
   globalData: {
     userInfo: null
+  },
+  //baseUrl:'http://120.76.247.5:2020',
+  apiUrl:'http://api.qfh5.cn/api',
+  request(url,data={},options={}){
+    url = this.apiUrl+url;
+    return new Promise((resolve,reject)=>{
+      wx.request({
+        url,
+        data,
+        method:'get',
+        ...options,
+        success:({data})=>{
+         resolve(data);
+        },
+        fail(){
+          reject()
+        }
+      })
+    })
   }
 })

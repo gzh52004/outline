@@ -1,0 +1,4 @@
+<view class="container">
+	<view><h1>班级学生列表</h1></view>
+	<button size="mini" plain wx:for="{{studentList}}" wx:key="_id">{{item.username}}</button>
+</view>

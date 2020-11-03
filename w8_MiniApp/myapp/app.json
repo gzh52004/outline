@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/list/list",
+    "pages/class/class",
     "pages/mine/mine"
   ],
   "window": {

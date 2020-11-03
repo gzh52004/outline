@@ -1,18 +1,22 @@
 // pages/list/list.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    page:1,
+    size:10,
+    total:-1,
+    classList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: async function (options) {
+    this.getData();
   },
 
   /**
@@ -54,7 +58,15 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    const {page,total,classList} = this.data;
+    if(classList.length<total){
 
+      this.setData({
+        page:page+1
+      },()=>{
+        this.getData();
+      })
+    }
   },
 
   /**
@@ -62,5 +74,17 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  async getData(){
+    const {page,size,classList} = this.data;
+    const {data} = await app.request('/class',{
+      page,
+      size
+    })
+
+    this.setData({
+      classList:[...classList,...data.result],
+      total:data.total
+    })
   }
 })
