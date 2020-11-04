@@ -78,6 +78,20 @@
 					"pathName": "pages/class/class",
 					"query": "classid=5f6afe8ea981d4c9a74e17e1",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "mine",
+					"pathName": "pages/mine/mine",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "地图",
+					"pathName": "pages/map/map",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

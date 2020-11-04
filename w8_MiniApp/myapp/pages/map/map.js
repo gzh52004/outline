@@ -1,24 +1,42 @@
-import request from '../../utils/request';
-console.log('request',request);
-
-const app = getApp()
+// pages/map/map.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    page:1,
-    size:10,
-    total:-1,
-    classList:[]
+    position:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function (options) {
-    this.getData();
+  onLoad: function (options) {
+    wx.getLocation({
+      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+      success: (res)=> {
+        const {latitude,longitude} = res
+        console.log('ll=',longitude,latitude)
+        // wx.openLocation({
+        //   latitude,
+        //   longitude,
+        //   scale: 18
+        // })
+
+        this.setData({
+          position:{
+            latitude,
+            longitude
+          }
+        })
+
+        wx.openLocation({
+          latitude,
+          longitude,
+          scale: 18
+        })
+      }
+     })
   },
 
   /**
@@ -60,15 +78,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    const {page,total,classList} = this.data;
-    if(classList.length<total){
 
-      this.setData({
-        page:page+1
-      },()=>{
-        this.getData();
-      })
-    }
   },
 
   /**
@@ -76,25 +86,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  async getData(){
-    const {page,size,classList} = this.data;
-    // const {data} = await app.request('/class',{
-    //   page,
-    //   size
-    // })
-
-    const {data} = await request.get('/class',{
-      page,
-      size
-    })
-
-    this.setData({
-      classList:[...classList,...data.result],
-      total:data.total
-    })
-  },
-  test(){
-    return 'test100';
   }
 })

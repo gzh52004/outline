@@ -1,17 +1,42 @@
 <view>
-  <view class="body">
-    <swiper autoplay indicator-dots>
-          <swiper-item wx:for="{{recommend}}" wx:key="id">
-            <view class="swiper-item" bind:tap="goto" data-url="{{item.link}}">{{index}} - {{item.text}}</view>
-            <text wx:key="*this" wx:for="{{item.list}}" wx:for-item="it" wx:for-index="idx">{{it}}</text>
-          </swiper-item>
-      </swiper>
-      <view class="login">
-         <input auto-focus placeholder="用户名" value="{{user.username}}" bind:input="changeUsername"/>
-         <input password placeholder="密码" value="{{user.password}}"
-         model:value="{{password}}"
-         />
-        <button type="primary" bind:tap="login" data-username="laoxie">登录</button>
-      </view>
-  </view>
+	<view class="body">
+		<swiper autoplay indicator-dots>
+			<swiper-item wx:for="{{recommend}}" wx:key="id">
+				<view class="swiper-item" bind:tap="goto" data-url="{{item.link}}">{{index}} - {{item.text}}</view>
+				<text wx:key="*this" wx:for="{{item.list}}" wx:for-item="it" wx:for-index="idx">{{it}}</text>
+			</swiper-item>
+		</swiper>
+		<view class="login">
+			<input auto-focus placeholder="用户名" value="{{user.username}}" bind:input="changeUsername" />
+			<input password placeholder="密码" value="{{user.password}}" model:value="{{password}}" />
+			<button type="primary" bind:tap="login" data-username="laoxie">登录</button>
+			<button plain bind:tap="{{utils.handleTest}}" data-username="laoxie">事件调用wxs中的方法</button>
+		</view>
+		<!-- 摄像头 -->
+		<!-- <view>
+			<camera  device-position="back" flash="off" binderror="error" style="width: 100%; height: 300px;"></camera>
+			<button type="primary" bindtap="takePhoto">拍照</button>
+			<view>预览</view>
+			<image mode="widthFix" src="{{photoSrc}}"></image>
+		</view> -->
+		<view>add:{{tools.add(10,20)}}</view>
+		<view>url:{{utils.formatUrl('https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=wgs84%20gcj02&fenlei=256&rsv_pq=91bbe4ae000047c7&rsv_t=7056JcJ5CRpIZ63bTAIE0ZKu9k%2Fv8kBaY%2BhJLTPJib7WoVHmqPWz26c1Hl4&rqlang=cn&rsv_enter=1&rsv_dl=tb&rsv_n=2&rsv_sug2=0&rsv_btype=i&inputT=3595&rsv_sug4=3717')}}</view>
+	</view>
 </view>
+<wxs module="tools">
+	// 在此编写模块化脚本
+	var tools = require('../../module/tools.wxs');
+	console.log(tools.formatUrl);
+	var num = 100;
+	function add(a,b){
+		return a+b;
+	}
+
+	// 模块中的作用域为独立作用域，不会影响全局环境
+	// 如需在外部调用模块中的方法/变量，需要导出，两种导出方式如下
+	//module.exports.add = add;
+	module.exports = {
+		add:add
+	}
+</wxs>
+<wxs src="../../module/tools.wxs" module="utils" />

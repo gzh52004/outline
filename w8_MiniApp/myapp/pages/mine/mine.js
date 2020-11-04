@@ -26,7 +26,8 @@ Page({
       username:'laoxie',
       password:123456
     },
-    password:'abc'
+    password:'abc',
+    photoSrc:''
   },
 
   changeUsername(e){
@@ -57,7 +58,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // 获取用于授权信息
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.camera']) {
+          wx.authorize({
+            scope: 'scope.camera',
+            success () {
+              // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+              console.log('用户已授权')
+            },
+            fail(){
+              console.log('用户禁止授权')
+            }
+          })
+        }
+      }
+    })
   },
 
   /**
@@ -107,5 +124,30 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  login(){
+
+  },
+  takePhoto(){
+    const ctx = wx.createCameraContext()
+    ctx.takePhoto({
+      quality: 'high',
+      success: (res) => {
+        this.setData({
+          photoSrc: res.tempImagePath
+        })
+
+        // 存入相册
+        wx.saveImageToPhotosAlbum({
+          filePath:res.tempImagePath,
+          success(){
+            wx.showToast({
+              title:'保存到相册成功',
+              icon:'none'
+            })
+          }
+        })
+      }
+    })
   }
 })

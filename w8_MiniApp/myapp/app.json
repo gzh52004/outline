@@ -4,6 +4,7 @@
     "pages/logs/logs",
     "pages/list/list",
     "pages/class/class",
+    "pages/map/map",
     "pages/mine/mine"
   ],
   "window": {
@@ -35,5 +36,10 @@
     }]
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "需要使用你当前的位置"
+    }
+  }
 }

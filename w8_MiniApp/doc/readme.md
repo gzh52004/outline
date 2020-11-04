@@ -151,3 +151,34 @@
     * wx.request()
     * 二次封装
 * 滚动加载（懒加载）
+
+## day8-3
+
+### 知识点
+* 内置组件
+* 特殊组件
+    * <wxs>
+
+* 模块化
+    * js模块化
+        * ESModule
+        * commonJS
+    * wxs模块化
+        > 遵循commonJS规范的模块
+* wxml模板
+    1. 利用template组件定义模板内容，并设置name属性
+    ```html
+        <template name="datalist"></template>
+    ```
+    2. 在需要的页面利用`<import>或<include>`引入模板文件
+    ```html
+        // 引入所有template
+        <import src="../template/template.wxml" />
+    ```
+    3. 在需要的位置使用模板内容
+    ```html
+        <template is="datalist" data="" />
+    ```
+
+
+

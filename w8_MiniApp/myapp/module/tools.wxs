@@ -1,0 +1,40 @@
+// 这里的文件为一个模块，具有独立的作用域
+/*
+  wxs模块化文件
+    > 遵循commonJS规范的模块化文件
+    * 导出
+      * module.exports.xx = xx
+      * module.exports = {}
+    * 引入
+      * require()
+*/
+
+function formatData(){
+  return '2020-11-04'
+}
+
+// http://xx.com?username=jj&password=123 ->{username:'jj',password:123}
+function formatUrl(url){
+  var idx = url.indexOf('?');
+  var search = url.slice(idx+1);
+  var params = search.split('&');
+
+  var result = params.reduce(function(prev,item){
+    var arr = item.split('=');
+    prev[arr[0]] = arr[1]
+    return prev;
+  },{})
+
+  return result;
+
+}
+
+function handleTest(){
+  console.log('test');
+}
+
+module.exports = {
+  formatData:formatData,
+  formatUrl:formatUrl,
+  handleTest:handleTest
+}
