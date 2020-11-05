@@ -23,6 +23,8 @@
 		<view>url:{{utils.formatUrl('https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=wgs84%20gcj02&fenlei=256&rsv_pq=91bbe4ae000047c7&rsv_t=7056JcJ5CRpIZ63bTAIE0ZKu9k%2Fv8kBaY%2BhJLTPJib7WoVHmqPWz26c1Hl4&rqlang=cn&rsv_enter=1&rsv_dl=tb&rsv_n=2&rsv_sug2=0&rsv_btype=i&inputT=3595&rsv_sug4=3717')}}</view>
 	</view>
 </view>
+<!-- 自定义组件的使用 -->
+<userlist current="bobo"/>
 <wxs module="tools">
 	// 在此编写模块化脚本
 	var tools = require('../../module/tools.wxs');

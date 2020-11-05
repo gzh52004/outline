@@ -33,7 +33,8 @@
       "text":"我的",
       "iconPath":"/img/mine.png",
       "selectedIconPath":"/img/mine_active.png"
-    }]
+    }],
+    "custom":true
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
@@ -41,5 +42,8 @@
     "scope.userLocation": {
       "desc": "需要使用你当前的位置"
     }
+  },
+  "usingComponents":{
+    "datalist":"/components/list/list"
   }
 }

@@ -1,8 +1,10 @@
 {
-  "usingComponents": {},
   "navigationBarBackgroundColor": "#ff9900",
   "navigationBarTitleText": "我的",
   "navigationBarTextStyle": "white",
   "backgroundColor":"#ccc",
-  "enablePullDownRefresh":true
+  "enablePullDownRefresh":true,
+  "usingComponents": {
+    "userlist":"/components/list/list"
+  }
 }

@@ -88,7 +88,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const tabBar = this.getTabBar()
+    tabBar.setData({
+      current:2
+    })
   },
 
   /**

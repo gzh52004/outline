@@ -157,7 +157,11 @@
 ### 知识点
 * 内置组件
 * 特殊组件
+    * <block>
     * <wxs>
+    * <template>
+    * <import>
+    * <include>
 
 * 模块化
     * js模块化
@@ -182,3 +186,43 @@
 
 
 
+
+## day8-4
+
+### 知识点
+* 自定义组件
+    > Component(options)
+    ```js
+        // app.js
+        App(); //注册一个应用
+
+        // 页面page.js
+        Page(); // 注册一个页面
+
+        // 组件定义
+        Component()
+    ```
+* 组件的使用
+    > 在json文件中的`usingComponents`字段定义组件名称与路径（app.json定位的组件为全局组件，否则为局部组件）
+    * 局部组件
+    * 全局组件
+* 自定义TabBar
+    1. 在根目录下创建`custom-tab-bar`目录
+    2. 在目录中定义`index`组件
+        * index.json
+        * index.js
+        * index.wxml
+        * index.wxss
+    > 只有在tabBar页面才会显示自定义tabBar
+
+* 上线流程
+    1. 开发与测试（自测）
+        > 微信开发这工具中测试
+    2. 真机测试
+        > 扫码测试
+    3. 测试团队测试
+        > 体验版
+    4. 提交审核
+        > 1-7个工作日知道结果
+    5. 发布
+        > 审核通过，可发布上线

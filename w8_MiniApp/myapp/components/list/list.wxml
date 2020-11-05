@@ -1,0 +1,5 @@
+<!--components/list/list.wxml-->
+<view>
+  <view><h1>{{name}}</h1></view>
+  <view wx:for="{{datalist}}" wx:key="*this" class="item {{current===item?'active':''}}">{{index+1}}-{{item}}</view>
+</view>
