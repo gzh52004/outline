@@ -213,7 +213,7 @@
         * index.js
         * index.wxml
         * index.wxss
-    > 只有在tabBar页面才会显示自定义tabBar
+    > 注意：只有在tabBar页面才会显示自定义tabBar，可以在页面中通过`getTabBar()`获取tabBar实例
 
 * 上线流程
     1. 开发与测试（自测）
@@ -226,3 +226,50 @@
         > 1-7个工作日知道结果
     5. 发布
         > 审核通过，可发布上线
+
+## day8-5
+
+### 知识点
+* 小程序跨平台框架
+    > 跨平台框架编写了每个平台对应的编译器，并统一接口、组件等api，实现一套代码分别编译到不同的平台
+* uni-app
+    > 是一个使用 Vue.js 开发所有前端应用的框架
+    * 文件结构
+        * 全局
+            * js        App.vue中的script
+            * json      pages.json中的globalStyle
+            * wxss      App.vue中的style
+        * 页面
+            * js        [page].vue中的script
+            * json      pages.json中的pages
+            * wxss      [page].vue中的style
+            * wxml      [page].vue中的template
+
+* wepy
+
+* taro
+    * 文件结构
+        * 全局
+            * app.js        app.jsx
+            * app.json      app.config.js
+            * app.wxss      app.scss
+        * 页面
+            * index.js      index.jsx
+            * index.json    index.config.js
+            * index.wxss    index.scss
+            * index.wxml    index.jsx
+
+
+```
+    process.env.NODE_ENV
+    const content = '<div style="color:#f00"><button></button></div>'
+    {content} => &lt;div>&gt;
+    <div dangerouslySetInnerHTML={{__html:content}}></div>
+```
+
+* mobx
+    * 在react中使用mobx可以利用一个桥接工具：mobx-react
+        1. Provider利用Context技术共享store
+        2. 利用高阶组件定义传入组件的props
+            * inject('store') 用于定义传入组件的props
+            * observer 用于监听数据修改，在数据修改时刷新组件
