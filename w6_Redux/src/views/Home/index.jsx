@@ -54,12 +54,19 @@ class Home extends React.Component {
             state: { price: 998 }
         })
     }
+    speech = ()=>{
+        if(!plus){
+            alert('当前环境不支持语音识别')
+        }
+        plus.speech.start
+    }
     render() {
         const { newList, hotList, iqList } = this.state;
         console.log('newList=', newList);
         return (
             <div className="home">
                 <h2>最新面试题</h2>
+                <input onClick={this.speech} />
                 <List
                     itemLayout="horizontal"
                     dataSource={newList}
