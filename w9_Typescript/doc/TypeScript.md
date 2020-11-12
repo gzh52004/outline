@@ -150,30 +150,24 @@ TypeScript由微软开发的自由和开源的编程语言，设计目标是开�
     * 可选属性
     * 只读属性
     * 任意属性
+
     ```ts
         interface Person {
             name: string;
-
             // 可选属性
             age?:number;
-
             // 只读属性（只能在创建的时候被赋值）
             readonly marry:boolean
-
             // 任意属性
             [propName: string]: any;
-
             // 方法定义
             say();
         }
-
         function greeter(person: Person) {
             // 传入的参数persion类型必须符合Person接口的描述
             return "Hello, " + person.firstName + " " + person.lastName;
         }
-
         let user = { name: "laoxie",marry:true};
-
         greeter(user)
     ```
 
@@ -190,33 +184,29 @@ TypeScript由微软开发的自由和开源的编程语言，设计目标是开�
         * readonly  只读属性关键字，只允许属性声明（与其他修饰符一起使用时必须写在最后）
     * 类型检查
         > 与接口一致
-```ts
-    class Student {
-        // 实例属性
-        fullName: string;
-        // 静态属性
-        static age = 18;
 
-        // public firstName
-        // 在构造函数参数中使用修饰符，等效于以上写法
-        constructor(public firstName, public middleInitial, public lastName) {
-            this.fullName = firstName + " " + middleInitial + " " + lastName;
+    ```ts
+        class Student {
+            // 实例属性
+            fullName: string;
+            // 静态属性
+            static age = 18;
+            // public firstName
+            // 在构造函数参数中使用修饰符，等效于以上写法
+            constructor(public firstName, public middleInitial, public lastName) {
+                this.fullName = firstName + " " + middleInitial + " " + lastName;
+            }
         }
-    }
-
-    interface Person {
-        firstName: string;
-        lastName: string;
-    }
-
-    function greeter(person : Person) {
-        return "Hello, " + person.firstName + " " + person.lastName;
-    }
-
-    let user = new Student("Jane", "M.", "User");
-
-    document.body.innerHTML = greeter(user);
-```
+        interface Person {
+            firstName: string;
+            lastName: string;
+        }
+        function greeter(person : Person) {
+            return "Hello, " + person.firstName + " " + person.lastName;
+        }
+        let user = new Student("Jane", "M.", "User");
+        document.body.innerHTML = greeter(user);
+    ```
 
 * 命名空间namespce（了解）
 > namespce目的就是解决重名问题，可以利用同一个命名空间把代码分散到不同的文件
@@ -226,15 +216,13 @@ TypeScript由微软开发的自由和开源的编程语言，设计目标是开�
             isAcceptable(s: string): boolean;
         }
     }
-
     // 使用步骤：
     // 1. 引用文件（三个斜杠）
     /// <reference path="Validation.ts"/>
-
     // 2. 通过点语法调用
     Validation.StringValidator;
 ```
-PS：命名空间最终会被生命为全局对象，所以在typescript中已经不推荐使用，建议使用Module来组织代码结构
+PS：命名空间最终会被声明为全局对象，所以在typescript中已经不推荐使用，建议使用Module来组织代码结构
 
 * 模块
     * CommonJS（默认）

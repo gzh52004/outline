@@ -29,4 +29,11 @@ class Student extends Person {
 }
 const s1 = new Student('laoxie', '男', 18);
 console.log('s1', s1);
-console.log('s1.age', s1.age);
+//  console.log('s1.age',s1.age);
+/**
+ * namespace使用
+   1. 引入
+   2. 通过点语法调用
+ */
+/// <reference path="./ns/form.ts"/>
+const cartlist = [{ name: 'goods1', price: 998, imgurl: 'img/goods1.png' }];
